@@ -1,0 +1,30 @@
+PODS:
+  - Alamofire (5.2.1)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
+    - Moya/Core
+    - RxSwift (~> 5.0)
+  - ObjectMapper (4.2.0)
+  - RxSwift (5.1.1)
+
+DEPENDENCIES:
+  - Moya/RxSwift
+  - ObjectMapper
+
+SPEC REPOS:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - Alamofire
+    - Moya
+    - ObjectMapper
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+
+PODFILE CHECKSUM: c6c9a50a8cf2dd0ebd9ffad802204b47d691a34e
+
+COCOAPODS: 1.9.1
