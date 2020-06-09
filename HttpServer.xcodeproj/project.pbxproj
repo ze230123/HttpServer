@@ -99,12 +99,12 @@
 		76557EFD248F709F003572B1 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
+				76557F30248F70D2003572B1 /* Storyboard */,
+				76557F2F248F70BF003572B1 /* ViewControllers */,
+				76557F2E248F70B1003572B1 /* HttpServer */,
 				76557EFE248F709F003572B1 /* AppDelegate.swift */,
 				76557F00248F709F003572B1 /* SceneDelegate.swift */,
-				76557F02248F709F003572B1 /* ViewController.swift */,
-				76557F04248F709F003572B1 /* Main.storyboard */,
 				76557F07248F70A0003572B1 /* Assets.xcassets */,
-				76557F09248F70A0003572B1 /* LaunchScreen.storyboard */,
 				76557F0C248F70A0003572B1 /* Info.plist */,
 			);
 			path = HttpServer;
@@ -126,6 +126,30 @@
 				76557F22248F70A0003572B1 /* Info.plist */,
 			);
 			path = HttpServerUITests;
+			sourceTree = "<group>";
+		};
+		76557F2E248F70B1003572B1 /* HttpServer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HttpServer;
+			sourceTree = "<group>";
+		};
+		76557F2F248F70BF003572B1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				76557F02248F709F003572B1 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		76557F30248F70D2003572B1 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				76557F09248F70A0003572B1 /* LaunchScreen.storyboard */,
+				76557F04248F709F003572B1 /* Main.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
