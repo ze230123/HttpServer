@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.2.1)
+  - GRDB.swift/SQLCipher (4.14.0):
+    - SQLCipher (>= 3.4.0)
+  - KeychainSwift (19.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -7,24 +10,37 @@ PODS:
     - RxSwift (~> 5.0)
   - ObjectMapper (4.2.0)
   - RxSwift (5.1.1)
+  - SQLCipher (4.4.0):
+    - SQLCipher/standard (= 4.4.0)
+  - SQLCipher/common (4.4.0)
+  - SQLCipher/standard (4.4.0):
+    - SQLCipher/common
 
 DEPENDENCIES:
+  - GRDB.swift/SQLCipher
+  - KeychainSwift (~> 19.0)
   - Moya/RxSwift
   - ObjectMapper
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
+    - GRDB.swift
+    - KeychainSwift
     - Moya
     - ObjectMapper
     - RxSwift
+    - SQLCipher
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SQLCipher: e434ed542b24f38ea7b36468a13f9765e1b5c072
 
-PODFILE CHECKSUM: c6c9a50a8cf2dd0ebd9ffad802204b47d691a34e
+PODFILE CHECKSUM: 6ec242ca2c31ce40217152903169ec6e4f5cdbde
 
 COCOAPODS: 1.9.1

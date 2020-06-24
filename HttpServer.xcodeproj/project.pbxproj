@@ -15,6 +15,20 @@
 		76557F0B248F70A0003572B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76557F09248F70A0003572B1 /* LaunchScreen.storyboard */; };
 		76557F16248F70A0003572B1 /* HttpServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F15248F70A0003572B1 /* HttpServerTests.swift */; };
 		76557F21248F70A0003572B1 /* HttpServerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F20248F70A0003572B1 /* HttpServerUITests.swift */; };
+		76557F32248F7A0F003572B1 /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F31248F7A0F003572B1 /* HttpServer.swift */; };
+		76557F35248F7B37003572B1 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F34248F7B37003572B1 /* UserApi.swift */; };
+		76557F37248F8204003572B1 /* MyUDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F36248F8204003572B1 /* MyUDID.swift */; };
+		76557F39248F8622003572B1 /* TargetType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F38248F8622003572B1 /* TargetType+Extension.swift */; };
+		76557F3B248F8687003572B1 /* String+Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F3A248F8687003572B1 /* String+Security.swift */; };
+		76557F3D248F86B6003572B1 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F3C248F86B6003572B1 /* Data+Extensions.swift */; };
+		76557F3F248F86EF003572B1 /* ApiSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F3E248F86EF003572B1 /* ApiSignature.swift */; };
+		76557F41248F8880003572B1 /* Moya+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F40248F8880003572B1 /* Moya+Extension.swift */; };
+		76557F43248F8FEB003572B1 /* Expiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F42248F8FEB003572B1 /* Expiry.swift */; };
+		76557F452490A69A003572B1 /* RxCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F442490A69A003572B1 /* RxCache.swift */; };
+		76557F472490C23A003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
+		76557F492490E0E3003572B1 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F482490E0E3003572B1 /* KeychainTests.swift */; };
+		76557F4A2490E11F003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
+		76557F4B2490E121003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
 		EBEE5066B5E2B132DB57CE6B /* Pods_HttpServerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F13DE59FCEA416A749200A8 /* Pods_HttpServerUITests.framework */; };
 		F90556C2B0C97B175D4B080D /* Pods_HttpServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDCEE735419A288B50A5F78 /* Pods_HttpServer.framework */; };
 		FC6B38484540B7282E8AFF03 /* Pods_HttpServerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B669BD6D41AE1DA06213D8A5 /* Pods_HttpServerTests.framework */; };
@@ -57,6 +71,18 @@
 		76557F1C248F70A0003572B1 /* HttpServerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HttpServerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76557F20248F70A0003572B1 /* HttpServerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServerUITests.swift; sourceTree = "<group>"; };
 		76557F22248F70A0003572B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76557F31248F7A0F003572B1 /* HttpServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
+		76557F34248F7B37003572B1 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		76557F36248F8204003572B1 /* MyUDID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUDID.swift; sourceTree = "<group>"; };
+		76557F38248F8622003572B1 /* TargetType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetType+Extension.swift"; sourceTree = "<group>"; };
+		76557F3A248F8687003572B1 /* String+Security.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Security.swift"; sourceTree = "<group>"; };
+		76557F3C248F86B6003572B1 /* Data+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		76557F3E248F86EF003572B1 /* ApiSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiSignature.swift; sourceTree = "<group>"; };
+		76557F40248F8880003572B1 /* Moya+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extension.swift"; sourceTree = "<group>"; };
+		76557F42248F8FEB003572B1 /* Expiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expiry.swift; sourceTree = "<group>"; };
+		76557F442490A69A003572B1 /* RxCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCache.swift; sourceTree = "<group>"; };
+		76557F462490C23A003572B1 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		76557F482490E0E3003572B1 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		B669BD6D41AE1DA06213D8A5 /* Pods_HttpServerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpServerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8C6846D80A50E32BC5EAFF4 /* Pods-HttpServerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpServerTests.release.xcconfig"; path = "Target Support Files/Pods-HttpServerTests/Pods-HttpServerTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA205740947B14358E0B8FAA /* Pods-HttpServerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpServerUITests.release.xcconfig"; path = "Target Support Files/Pods-HttpServerUITests/Pods-HttpServerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +152,7 @@
 		76557EFD248F709F003572B1 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
+				76557F33248F7B0A003572B1 /* Examples */,
 				76557F30248F70D2003572B1 /* Storyboard */,
 				76557F2F248F70BF003572B1 /* ViewControllers */,
 				76557F2E248F70B1003572B1 /* HttpServer */,
@@ -142,6 +169,7 @@
 			children = (
 				76557F15248F70A0003572B1 /* HttpServerTests.swift */,
 				76557F17248F70A0003572B1 /* Info.plist */,
+				76557F482490E0E3003572B1 /* KeychainTests.swift */,
 			);
 			path = HttpServerTests;
 			sourceTree = "<group>";
@@ -158,6 +186,12 @@
 		76557F2E248F70B1003572B1 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
+				76557F42248F8FEB003572B1 /* Expiry.swift */,
+				76557F31248F7A0F003572B1 /* HttpServer.swift */,
+				76557F38248F8622003572B1 /* TargetType+Extension.swift */,
+				76557F40248F8880003572B1 /* Moya+Extension.swift */,
+				76557F442490A69A003572B1 /* RxCache.swift */,
+				76557F462490C23A003572B1 /* Keychain.swift */,
 			);
 			path = HttpServer;
 			sourceTree = "<group>";
@@ -177,6 +211,18 @@
 				76557F04248F709F003572B1 /* Main.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		76557F33248F7B0A003572B1 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				76557F3E248F86EF003572B1 /* ApiSignature.swift */,
+				76557F3C248F86B6003572B1 /* Data+Extensions.swift */,
+				76557F3A248F8687003572B1 /* String+Security.swift */,
+				76557F36248F8204003572B1 /* MyUDID.swift */,
+				76557F34248F7B37003572B1 /* UserApi.swift */,
+			);
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		7F28E2AF7FB468F469FDDAFA /* Pods */ = {
@@ -414,8 +460,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				76557F03248F709F003572B1 /* ViewController.swift in Sources */,
+				76557F3F248F86EF003572B1 /* ApiSignature.swift in Sources */,
+				76557F39248F8622003572B1 /* TargetType+Extension.swift in Sources */,
+				76557F452490A69A003572B1 /* RxCache.swift in Sources */,
+				76557F3B248F8687003572B1 /* String+Security.swift in Sources */,
+				76557F3D248F86B6003572B1 /* Data+Extensions.swift in Sources */,
+				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
 				76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */,
+				76557F32248F7A0F003572B1 /* HttpServer.swift in Sources */,
+				76557F43248F8FEB003572B1 /* Expiry.swift in Sources */,
 				76557F01248F709F003572B1 /* SceneDelegate.swift in Sources */,
+				76557F37248F8204003572B1 /* MyUDID.swift in Sources */,
+				76557F41248F8880003572B1 /* Moya+Extension.swift in Sources */,
+				76557F472490C23A003572B1 /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +481,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				76557F16248F70A0003572B1 /* HttpServerTests.swift in Sources */,
+				76557F492490E0E3003572B1 /* KeychainTests.swift in Sources */,
+				76557F4A2490E11F003572B1 /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76557F21248F70A0003572B1 /* HttpServerUITests.swift in Sources */,
+				76557F4B2490E121003572B1 /* Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
