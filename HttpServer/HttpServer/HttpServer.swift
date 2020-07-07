@@ -62,6 +62,8 @@ private let provider = MoyaProvider<MultiTarget>(plugins: plugins)
 /// 网络服务单例（添加加载动画使用）
 class HttpServer {
     static let share = HttpServer()
+    private let rxCache = RxCache()
+
     init() {}
 }
 
@@ -75,12 +77,13 @@ extension HttpServer {
         return self
     }
 
-    func request<T>(api: TargetType & MoyaAddable, type: DataType, callback: Observer<T>) {
+    func request<T>(api: TargetType & MoyaAddable, type: DataType, callback: Observer<T>) where T: Mappable {
+        let observable = request(api: api)
         api.policy
     }
 
-    func request(api: TargetType) -> Observable<String> {
-        return provider.rx.request(MultiTarget(api)).asObservable().mapString()
+    func request(api: TargetType) -> Observable<Response> {
+        return provider.rx.request(MultiTarget(api)).asObservable()
     }
 
     enum DataType {
@@ -116,7 +119,6 @@ class Observer<Element> {
     }
 }
 
-
 class Test {
     func test() {
         Server.getUserInfo(id: 0, callback: Observer<User> { result in
@@ -129,8 +131,6 @@ class Test {
         })
     }
 }
-
-
 
 // MARK: - 数据模型
 struct ResultModel<M: Mappable>: Mappable {
@@ -158,5 +158,9 @@ struct User: Mappable {
 }
 
 extension Response {
-    
+}
+
+struct HttpResult {
+    var statusCode: Int
+    var data: String
 }

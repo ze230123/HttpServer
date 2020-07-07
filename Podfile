@@ -10,8 +10,9 @@ target 'HttpServer' do
   # Pods for HttpServer
   pod 'Moya/RxSwift'
   pod 'ObjectMapper'
-  pod 'GRDB.swift/SQLCipher', '~> 5.0'
+  pod 'GRDB.swift/SQLCipher'
   pod 'KeychainSwift', '~> 19.0'
+  pod 'BMKLocationKit'
 
   target 'HttpServerTests' do
     inherit! :search_paths

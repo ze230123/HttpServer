@@ -13,11 +13,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }
+//    var mapManager: BMKMapManager?
+//
+//    func initBaiDuMap() {
+//        // 初始化定位SDK
+//        BMKLocationAuth.sharedInstance()?.checkPermision(withKey: "Bl0GqzMSGnVT7n5ZGiG93waph6LQ0IhM", authDelegate: self)
+//
+//        //要使用百度地图，请先启动BMKMapManager
+//        mapManager = BMKMapManager()
+//        /**
+//         百度地图SDK所有API均支持百度坐标（BD09）和国测局坐标（GCJ02），用此方法设置您使用的坐标类型.
+//         默认是BD09（BMK_COORDTYPE_BD09LL）坐标.
+//         如果需要使用GCJ02坐标，需要设置CoordinateType为：BMK_COORDTYPE_COMMON.
+//         */
+//        if BMKMapManager.setCoordinateTypeUsedInBaiduMapSDK(BMK_COORD_TYPE.COORDTYPE_BD09LL) {
+//            NSLog("经纬度类型设置成功")
+//        } else {
+//            NSLog("经纬度类型设置失败")
+//        }
+//
+//        //启动引擎并设置AK并设置delegate
+//        if !(mapManager!.start("Bl0GqzMSGnVT7n5ZGiG93waph6LQ0IhM", generalDelegate: self)) {
+//            NSLog("启动引擎失败")
+//        }
+//    }
 
     // MARK: UISceneSession Lifecycle
 
@@ -38,3 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate: BMKLocationAuthDelegate {
+    
+}

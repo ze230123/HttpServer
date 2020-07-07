@@ -29,6 +29,7 @@
 		76557F492490E0E3003572B1 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F482490E0E3003572B1 /* KeychainTests.swift */; };
 		76557F4A2490E11F003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
 		76557F4B2490E121003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
+		7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */; };
 		EBEE5066B5E2B132DB57CE6B /* Pods_HttpServerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F13DE59FCEA416A749200A8 /* Pods_HttpServerUITests.framework */; };
 		F90556C2B0C97B175D4B080D /* Pods_HttpServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDCEE735419A288B50A5F78 /* Pods_HttpServer.framework */; };
 		FC6B38484540B7282E8AFF03 /* Pods_HttpServerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B669BD6D41AE1DA06213D8A5 /* Pods_HttpServerTests.framework */; };
@@ -83,6 +84,8 @@
 		76557F442490A69A003572B1 /* RxCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCache.swift; sourceTree = "<group>"; };
 		76557F462490C23A003572B1 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		76557F482490E0E3003572B1 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
+		7678F1CD24B30B53006BBDD2 /* HttpServer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpServer-Bridging-Header.h"; sourceTree = "<group>"; };
+		7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCountHandler.swift; sourceTree = "<group>"; };
 		B669BD6D41AE1DA06213D8A5 /* Pods_HttpServerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpServerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8C6846D80A50E32BC5EAFF4 /* Pods-HttpServerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpServerTests.release.xcconfig"; path = "Target Support Files/Pods-HttpServerTests/Pods-HttpServerTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA205740947B14358E0B8FAA /* Pods-HttpServerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpServerUITests.release.xcconfig"; path = "Target Support Files/Pods-HttpServerUITests/Pods-HttpServerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +163,7 @@
 				76557F00248F709F003572B1 /* SceneDelegate.swift */,
 				76557F07248F70A0003572B1 /* Assets.xcassets */,
 				76557F0C248F70A0003572B1 /* Info.plist */,
+				7678F1CD24B30B53006BBDD2 /* HttpServer-Bridging-Header.h */,
 			);
 			path = HttpServer;
 			sourceTree = "<group>";
@@ -192,6 +196,7 @@
 				76557F40248F8880003572B1 /* Moya+Extension.swift */,
 				76557F442490A69A003572B1 /* RxCache.swift */,
 				76557F462490C23A003572B1 /* Keychain.swift */,
+				7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */,
 			);
 			path = HttpServer;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				TargetAttributes = {
 					76557EFA248F709F003572B1 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					76557F10248F70A0003572B1 = {
 						CreatedOnToolsVersion = 11.5;
@@ -465,6 +471,7 @@
 				76557F452490A69A003572B1 /* RxCache.swift in Sources */,
 				76557F3B248F8687003572B1 /* String+Security.swift in Sources */,
 				76557F3D248F86B6003572B1 /* Data+Extensions.swift in Sources */,
+				7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */,
 				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
 				76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */,
 				76557F32248F7A0F003572B1 /* HttpServer.swift in Sources */,
@@ -649,6 +656,7 @@
 			baseConfigurationReference = 70972F61DF4F7DE1912C2D04 /* Pods-HttpServer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4WM659594V;
 				INFOPLIST_FILE = HttpServer/Info.plist;
@@ -659,6 +667,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.eagersoftdbl.HttpServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HttpServer/HttpServer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -669,6 +679,7 @@
 			baseConfigurationReference = 3B6F01244627A9027D8A46E5 /* Pods-HttpServer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4WM659594V;
 				INFOPLIST_FILE = HttpServer/Info.plist;
@@ -679,6 +690,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.eagersoftdbl.HttpServer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HttpServer/HttpServer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
