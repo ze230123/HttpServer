@@ -9,20 +9,41 @@
 import Foundation
 import GRDB
 
+/// 请求频率处理
 class RequestFrequencyHandler {
     let database: RequestFrequencyDatabase
 
     init() {
         let databaseURL = try! FileManager.default
-            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent("db.sqlite")
+            .url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent("requestFrequency.sqlite")
         let dbQueue = try! DatabaseQueue(path: databaseURL.path)
         // Create the shared application database
         database = try! RequestFrequencyDatabase(dbQueue)
     }
 
-    func valid(api: String, parameter: String) -> Bool {
-        return true
+    /// 检验一个请求是否无效
+    /// - Parameters:
+    ///   - api: 接口path
+    ///   - parameter: 接口参数
+    /// - Returns: true: 无效， false: 有效
+    func invalid(api: String, parameter: String) -> Bool {
+        let apiParameterCount = try! database.queryCount(api, parameter: parameter, date: Date(timeIntervalSinceNow: RequestFrequencyConfig.apiAndParameter.time))
+        let apiCount = try! database.queryCount(api, date: Date(timeIntervalSinceNow: RequestFrequencyConfig.api.time))
+        let allCount = try! database.queryCount(Date(timeIntervalSinceNow: RequestFrequencyConfig.all.time))
+
+        if apiParameterCount > RequestFrequencyConfig.apiAndParameter.count {
+            return true
+        } else if apiCount > RequestFrequencyConfig.api.count {
+            return true
+        } else if allCount > RequestFrequencyConfig.all.count {
+            return true
+        }
+        return false
+    }
+
+    func saveRecord(_ api: String, parameter: String) {
+        try! database.saveRecord(api, parameter: parameter)
     }
 }
 
@@ -76,8 +97,8 @@ struct RequestFrequencyDatabase {
                 t.autoIncrementedPrimaryKey("id")
                 // Sort player names in a localized case insensitive fashion by default
                 // See https://github.com/groue/GRDB.swift/blob/master/README.md#unicode
-                t.column("path", .text).notNull().collate(.localizedCaseInsensitiveCompare)
-                t.column("parameter", .text)
+                t.column("api", .text).notNull().collate(.localizedCaseInsensitiveCompare)
+                t.column("parameter", .text).collate(.localizedCaseInsensitiveCompare)
                 t.column("date", .date).notNull()
             }
         }
@@ -86,24 +107,99 @@ struct RequestFrequencyDatabase {
 }
 
 extension RequestFrequencyDatabase {
-    func saveRecord(_ record: RequestRecord) {
+    /// 保存请求记录
+    /// - Parameters:
+    ///   - api: 接口path
+    ///   - parameter: 接口参数
+    /// - Throws: 保存数据库引发的错误
+    func saveRecord(_ api: String, parameter: String) throws {
+        var item = RequestRecord(api: api, parameter: parameter)
+        try dbQueue.write { db in
+            try item.save(db)
+        }
+    }
+    
+    /// 保存请求记录
+    /// - Parameters:
+    ///   - api: 接口path
+    ///   - parameter: 接口参数
+    ///   - date: 接口调用时间
+    /// - Throws: 保存数据库引发的错误
+    func saveRecord(_ api: String, parameter: String, date: Date) throws {
+        var item = RequestRecord(api: api, parameter: parameter, date: date)
+        try dbQueue.write { db in
+            try item.save(db)
+        }
+    }
+
+    /// 查询记录数量
+    /// - Parameters:
+    ///   - api: 接口path
+    ///   - parameter: 接口参数
+    ///   - date: 接口请求时间
+    /// - Throws: 查询数据库引发的错误
+    /// - Returns: 符合条件的请求记录数量
+    func queryCount(_ api: String, parameter: String, date: Date) throws -> Int {
+        let apiColumn = Column("api")
+        let parameterColumn = Column("parameter")
+        let dateColumn = Column("date")
+
+        return try dbQueue.read { (db) -> Int in
+            return try RequestRecord.filter(apiColumn == api).filter(parameterColumn == parameter).filter(dateColumn > date).fetchCount(db)
+        }
+    }
+
+    /// 查询记录数量
+    /// - Parameters:
+    ///   - api: 接口path
+    ///   - date: 接口请求时间
+    /// - Throws: 查询数据库引发的错误
+    /// - Returns: 符合条件的请求记录数量
+    func queryCount(_ api: String, date: Date) throws -> Int {
+        let apiColumn = Column("api")
+        let dateColumn = Column("date")
+
+        return try dbQueue.read { (db) -> Int in
+            return try RequestRecord.filter(apiColumn == api).filter(dateColumn > date).fetchCount(db)
+        }
+    }
+
+    /// 查询记录数量
+    /// - Parameter date: 接口请求时间
+    /// - Throws: 查询数据库引发的错误
+    /// - Returns: 符合条件的请求记录数量
+    func queryCount(_ date: Date) throws -> Int {
+        let dateColumn = Column("date")
+
+        return try dbQueue.read { (db) -> Int in
+            return try RequestRecord.filter(dateColumn > date).fetchCount(db)
+        }
+    }
+
+    /// 删除全部记录
+    /// - Throws: 删除数据库记录引发的错误
+    func deleteAll() throws {
+        try dbQueue.write { db in
+            _ = try RequestRecord.deleteAll(db)
+        }
     }
 }
-
 
 /// 网络链接请求记录
 struct RequestRecord {
     var id: Int64?
-    var path: String = ""
+    var api: String = ""
     var parameter: String = ""
     var date: Date = Date()
 
-    init(path: String) {
-        self.path = path
+    init(api: String, parameter: String) {
+        self.api = api
+        self.parameter = parameter
     }
 
-    init(path: String, date: Date) {
-        self.path = path
+    init(api: String, parameter: String, date: Date) {
+        self.api = api
+        self.parameter = parameter
         self.date = date
     }
 }
@@ -111,7 +207,7 @@ struct RequestRecord {
 extension RequestRecord: Codable, FetchableRecord, MutablePersistableRecord, TableRecord {
     private enum Columns {
         static let id = Column(CodingKeys.id)
-        static let path = Column(CodingKeys.path)
+        static let path = Column(CodingKeys.api)
         static let parameter = Column(CodingKeys.parameter)
         static let date = Column(CodingKeys.date)
     }

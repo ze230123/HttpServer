@@ -13,5 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    @IBAction func clearAction() {
+        CacheCore.shared.removeAll()
+    }
 }
 

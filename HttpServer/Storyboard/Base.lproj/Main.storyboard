@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YCT-OS-KuD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -16,19 +16,117 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
-                                <rect key="frame" x="157" y="308" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-jx-EOg">
+                                <rect key="frame" x="179.5" y="388" width="55" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
+                                        <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
+                                        <state key="normal" title="User"/>
+                                        <connections>
+                                            <segue destination="gPS-yI-4Jd" kind="show" id="V4d-ka-WRQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRO-x6-OAx">
+                                        <rect key="frame" x="0.0" y="45" width="55" height="30"/>
+                                        <state key="normal" title="Flatmap"/>
+                                        <connections>
+                                            <segue destination="eg1-b6-vd4" kind="show" id="Qf4-cY-BTZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEK-iv-njz">
+                                        <rect key="frame" x="0.0" y="90" width="55" height="30"/>
+                                        <state key="normal" title="Zip"/>
+                                        <connections>
+                                            <segue destination="lel-SH-peE" kind="show" id="tcw-gy-sLs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GbH-jx-EOg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="QCg-vs-u3N"/>
+                            <constraint firstItem="GbH-jx-EOg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ffc-Dg-6D9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3ZD-id-E9c">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Wn5-Eg-qFz">
+                            <connections>
+                                <action selector="clearAction" destination="BYZ-38-t0r" id="xxX-7y-laT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--Falt Map View Controller-->
+        <scene sceneID="Eid-5D-XWz">
+            <objects>
+                <viewController id="eg1-b6-vd4" customClass="FaltMapViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a3d-kI-Pyh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5LJ-NO-Kuv"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wgw-J3-API"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ugl-y2-cjc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2084" y="226"/>
+        </scene>
+        <!--Zip View Controller-->
+        <scene sceneID="Jgi-fD-Mtw">
+            <objects>
+                <viewController id="lel-SH-peE" customClass="ZipViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vK6-3E-wko">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="kMM-e8-NgW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dSy-nP-JnY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ads-FQ-esa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="974"/>
+        </scene>
+        <!--User View Controller-->
+        <scene sceneID="DPo-zE-aPa">
+            <objects>
+                <viewController id="gPS-yI-4Jd" customClass="UserViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kw9-br-uPr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="hW1-U8-MEY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wv1-1B-cfO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kCx-Sk-2Qu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="-476"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="m1a-fU-CnJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YCT-OS-KuD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qAW-H2-xlT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="d5K-OP-28r"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DPc-FB-1b1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

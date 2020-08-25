@@ -79,4 +79,19 @@ class KeychainTests: XCTestCase {
         let order1 = stored.get(order.iapOrderNo)
         XCTAssertNil(order1)
     }
+
+    func testTransformJsonEquatable() {
+        for idx in (1...5) {
+            let user1 = User(id: "12345678", numId: 987654, gender: .male)
+            let json1 = user1.toJSONString(prettyPrint: true)
+            let user2 = User(id: "12345678", numId: 987654, gender: .male)
+            let json2 = user2.toJSONString(prettyPrint: true)
+            print("\n")
+            print("----------------- \(idx) -----------------")
+            print(json1)
+            print(json2)
+            print("----------------- \(idx) -----------------")
+            XCTAssertEqual(json1, json2)
+        }
+    }
 }

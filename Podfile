@@ -13,6 +13,7 @@ target 'HttpServer' do
   pod 'GRDB.swift/SQLCipher'
   pod 'KeychainSwift', '~> 19.0'
   pod 'BMKLocationKit'
+  pod 'LookinServer', :configurations => ['Debug']
 
   target 'HttpServerTests' do
     inherit! :search_paths

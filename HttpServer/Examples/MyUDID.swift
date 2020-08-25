@@ -22,7 +22,7 @@ class MyUDID {
 
     func getDBPwd(uid: String) -> String {
         let str = getUDID(uid: uid) + uid
-        return String(str.MD5.lowercased().prefix(6))
+        return String(str.md5.lowercased().prefix(6))
     }
 
     func getUDID(uid: String) -> String {
@@ -33,8 +33,8 @@ class MyUDID {
 
         if udid.isEmpty {
 //            Logger.debug("udid 为空")
-            salt = UUID().uuidString.MD5
-            let data = (uid.MD5 + salt).data(using: .utf8)
+            salt = UUID().uuidString.md5
+            let data = (uid.md5 + salt).data(using: .utf8)
             udid = data?.encode.toString() ?? ""
         } else {
 //            Logger.debug("udid 有值 : \(udid)")
@@ -44,11 +44,11 @@ class MyUDID {
             salt = String(udid.suffix(32))
 //            Logger.debug(salt)
             let subUid = String(udid.prefix(32))
-            let uidMd5 = uid.MD5
+            let uidMd5 = uid.md5
             if subUid != uidMd5 {
 //                Logger.debug("重新生成")
-                salt = UUID().uuidString.MD5
-                let data = (uid.MD5 + salt).data(using: .utf8)
+                salt = UUID().uuidString.md5
+                let data = (uid.md5 + salt).data(using: .utf8)
                 udid = data?.encode.toString() ?? ""
             } else {
 //                Logger.debug("重新加密")
@@ -61,11 +61,11 @@ class MyUDID {
     }
 
     func salt() -> String {
-        return UUID().uuidString.MD5
+        return UUID().uuidString.md5
     }
 
     func encodeUdid(uid: String) -> String {
-        let data = (uid.MD5 + salt()).data(using: .utf8)
+        let data = (uid.md5 + salt()).data(using: .utf8)
         return data?.encode.toString() ?? ""
     }
 

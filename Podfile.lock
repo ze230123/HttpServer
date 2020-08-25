@@ -4,6 +4,7 @@ PODS:
   - GRDB.swift/SQLCipher (4.14.0):
     - SQLCipher (>= 3.4.0)
   - KeychainSwift (19.0.0)
+  - LookinServer (1.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - BMKLocationKit
   - GRDB.swift/SQLCipher
   - KeychainSwift (~> 19.0)
+  - LookinServer
   - Moya/RxSwift
   - ObjectMapper
 
@@ -30,6 +32,7 @@ SPEC REPOS:
     - BMKLocationKit
     - GRDB.swift
     - KeychainSwift
+    - LookinServer
     - Moya
     - ObjectMapper
     - RxSwift
@@ -40,11 +43,12 @@ SPEC CHECKSUMS:
   BMKLocationKit: fd3d6b4a9a3a1a2763819f56b780bda5fc5b8726
   GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
+  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SQLCipher: e434ed542b24f38ea7b36468a13f9765e1b5c072
 
-PODFILE CHECKSUM: 5d28ba55818a368b49f9900eabfa27deab6b97af
+PODFILE CHECKSUM: b92d5e3f38e152867e53fd00c4f08bb37b1e0859
 
 COCOAPODS: 1.9.1

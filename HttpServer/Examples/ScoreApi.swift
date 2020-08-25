@@ -1,23 +1,22 @@
 //
-//  UserApi.swift
+//  ScoreApi.swift
 //  HttpServer
 //
-//  Created by youzy01 on 2020/6/9.
+//  Created by youzy01 on 2020/8/25.
 //  Copyright © 2020 youzy. All rights reserved.
 //
 
 import Moya
 
-/// 用户信息相关Api
-enum UserApi {
-    /// 获取用户信息
-    case info(id: Int)
+enum ScoreApi {
+    /// 获取用户当前使用成绩信息
+    case getByUser(numId: Int, proId: Int)
 }
 
-extension UserApi: TargetType, MoyaAddable {
+extension ScoreApi: TargetType, MoyaAddable {
     var policy: CachePolicy {
         switch self {
-        case .info:
+        case .getByUser:
 //            return .cacheAndRequest(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
             return .firstCache(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
         }
@@ -25,20 +24,21 @@ extension UserApi: TargetType, MoyaAddable {
 
     var task: Task {
         switch self {
-        case let .info(id):
+        case let .getByUser(numId, proId):
             let parameters: [String: Any] = [
-                "numId": id,
-                "isFillAreaName": "true",
-                "machineCode": MyUDID.share.getUDID(uid: "\(id)")
+                "userNumId": numId,
+                "provinceNumId": proId,
+                "isGaoKao": true,
+                "isFillProvinceName": true
             ]
-            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 
     var path: String {
         switch self {
-        case .info:
-            return "/Users/GetBrief"
+        case .getByUser:
+            return "/Users/Scores/GetByUserNumId"
         }
     }
 
