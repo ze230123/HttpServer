@@ -17,34 +17,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-jx-EOg">
-                                <rect key="frame" x="179.5" y="365.5" width="55" height="165"/>
+                                <rect key="frame" x="173.5" y="320.5" width="67" height="255"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
-                                        <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="67" height="30"/>
                                         <state key="normal" title="User"/>
                                         <connections>
                                             <segue destination="gPS-yI-4Jd" kind="show" id="V4d-ka-WRQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRO-x6-OAx">
-                                        <rect key="frame" x="0.0" y="45" width="55" height="30"/>
+                                        <rect key="frame" x="0.0" y="45" width="67" height="30"/>
                                         <state key="normal" title="Flatmap"/>
                                         <connections>
                                             <segue destination="eg1-b6-vd4" kind="show" id="Qf4-cY-BTZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEK-iv-njz">
-                                        <rect key="frame" x="0.0" y="90" width="55" height="30"/>
+                                        <rect key="frame" x="0.0" y="90" width="67" height="30"/>
                                         <state key="normal" title="Zip"/>
                                         <connections>
                                             <segue destination="lel-SH-peE" kind="show" id="tcw-gy-sLs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-FM-0s2">
-                                        <rect key="frame" x="0.0" y="135" width="55" height="30"/>
+                                        <rect key="frame" x="0.0" y="135" width="67" height="30"/>
                                         <state key="normal" title="Empty"/>
                                         <connections>
                                             <segue destination="6NE-EU-v1S" kind="show" id="Rw4-ik-2I2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Miu-nX-4R2">
+                                        <rect key="frame" x="0.0" y="180" width="67" height="30"/>
+                                        <state key="normal" title="TableList"/>
+                                        <connections>
+                                            <segue destination="xzX-8X-asd" kind="show" id="U8E-ZR-Mtb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tuy-p2-dmy">
+                                        <rect key="frame" x="0.0" y="225" width="67" height="30"/>
+                                        <state key="normal" title="NewTable"/>
+                                        <connections>
+                                            <segue destination="DSE-NL-sXl" kind="show" id="u9E-Ye-CRK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -68,6 +82,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--New Table View Controller-->
+        <scene sceneID="mZr-bQ-0hZ">
+            <objects>
+                <viewController id="DSE-NL-sXl" customClass="NewTableViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="grb-sr-qRB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8lr-pq-sen">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewTableCell" id="UkS-41-tad">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UkS-41-tad" id="juo-fW-1MU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="DSE-NL-sXl" id="a3a-GC-XJn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8lr-pq-sen" firstAttribute="top" secondItem="EGo-kI-yOx" secondAttribute="top" id="CVE-LI-ejA"/>
+                            <constraint firstAttribute="bottom" secondItem="8lr-pq-sen" secondAttribute="bottom" id="Qtb-hO-lih"/>
+                            <constraint firstItem="EGo-kI-yOx" firstAttribute="trailing" secondItem="8lr-pq-sen" secondAttribute="trailing" id="RgZ-1T-5Tg"/>
+                            <constraint firstItem="8lr-pq-sen" firstAttribute="leading" secondItem="EGo-kI-yOx" secondAttribute="leading" id="iQj-sh-Emr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EGo-kI-yOx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JDm-o2-bg5"/>
+                    <connections>
+                        <outlet property="tableView" destination="8lr-pq-sen" id="qBB-Vf-T4T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMs-cO-Lkj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-642" y="925"/>
+        </scene>
+        <!--Table List View Controller-->
+        <scene sceneID="VeG-Ic-ien">
+            <objects>
+                <tableViewController id="xzX-8X-asd" customClass="TableListViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="1" id="t2w-0y-Ifr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableListCell" id="c7E-ss-Dsj">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c7E-ss-Dsj" id="k5e-Hh-Orw">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xzX-8X-asd" id="WOK-8Z-kYS"/>
+                            <outlet property="delegate" destination="xzX-8X-asd" id="dCm-vE-glk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cmj-oK-dHy"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQm-vK-p7O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="952"/>
         </scene>
         <!--Empty View Controller-->
         <scene sceneID="SD3-QS-Dds">

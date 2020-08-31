@@ -200,6 +200,7 @@ extension UIView {
         }
     }
 
+    /// 加载hud动画
     private var imageHudLoadingView: MBHUD? {
         set {
             objc_setAssociatedObject(self, &Keys.imageHud, newValue, .OBJC_ASSOCIATION_RETAIN)
@@ -233,8 +234,9 @@ extension UIView {
         }
     }
 
-    func showLoading(_ style: LoadingStyle) {
+    func showLoading(_ style: LoadingStyle, isEnabled: Bool = true) {
         reset()
+        guard isEnabled else { return }
         switch style {
         case .image:
             showImageLoadingView()
@@ -243,6 +245,10 @@ extension UIView {
         case .normalHud:
             showNormalHud()
         }
+    }
+
+    func stopLoading() {
+        reset()
     }
 
     private func showImageLoadingView() {
@@ -272,15 +278,78 @@ extension UIView {
     }
 
     private func showNormalHud() {
-        MBHUD.showCustomAdded(to: self, animated: true)
+        _ = MBHUD.showCustomAdded(to: self, animated: true)
     }
 
-    private func reset() {
+    fileprivate func reset() {
         errorView?.removeFromSuperview()
         emptyView?.removeFromSuperview()
         imageLoadingView?.removeFromSuperview()
-//        imageHudLoadingView?.hide(animated: true)
         MBHUD.hide(for: self, animated: true)
+    }
+}
+
+import MJRefresh
+
+extension UITableView {
+    func addRefreshHeader(target: Any, action: Selector) {
+        mj_header = MJRefreshNormalHeader(refreshingTarget: target, refreshingAction: action)
+    }
+
+    func addRefreshFooter(target: Any, action: Selector) {
+        let footer = MJRefreshAutoNormalFooter(refreshingTarget: target, refreshingAction: action)
+        footer.isHidden = true
+        mj_footer = footer
+    }
+
+    func endRefresh(_ action: RefreshAction, isNotData: Bool) {
+        switch action {
+        case .load:
+            endRefreshHeader(isNotData: isNotData)
+        case .more:
+            endRefreshFooter(isNotData: isNotData)
+        }
+    }
+
+    private func endRefreshHeader(isNotData: Bool) {
+        mj_header?.endRefreshing()
+        if !isNotData && mj_footer != nil {
+            mj_footer?.isHidden = false
+            mj_footer?.resetNoMoreData()
+        } else if mj_footer != nil {
+            mj_footer?.isHidden = true
+        }
+    }
+
+    private func endRefreshFooter(isNotData: Bool) {
+        if isNotData {
+            mj_footer?.endRefreshingWithNoMoreData()
+        } else {
+            mj_footer?.endRefreshing()
+        }
+    }
+
+    /// 重新加载数据并检查数据是否为空
+    func reloadDataAndCheckEmpty(type: CheckType = .row) {
+        reloadData()
+        let isEmpty = isEmptyData(type: type)
+        print(isEmpty)
+        superview?.reset()
+        showEmpty(isEmpty)
+    }
+
+    private func isEmptyData(type: CheckType) -> Bool {
+        switch type {
+        case .section:
+            return numberOfSections == 0
+        case .row:
+            return numberOfSections == 1 && numberOfRows(inSection: 0) == 0
+        }
+    }
+
+    enum CheckType {
+        case section
+        case row
     }
 }
 
@@ -324,6 +393,8 @@ class EmptyView: UIView {
 
 extension EmptyView {
     func setup() {
+        backgroundColor = .orange
+
         label.text = "没有数据"
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)

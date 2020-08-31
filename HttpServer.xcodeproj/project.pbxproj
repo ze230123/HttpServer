@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7638582A24FC903D00ABEC80 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7638582824FC903D00ABEC80 /* EmptyViewController.swift */; };
 		7638589324FCA56B00ABEC80 /* MBProgressHUD+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7638589224FCA56B00ABEC80 /* MBProgressHUD+Custom.swift */; };
+		7638589524FCC2B000ABEC80 /* TableListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7638589424FCC2B000ABEC80 /* TableListViewController.swift */; };
+		7638589724FCDC2D00ABEC80 /* NewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7638589624FCDC2D00ABEC80 /* NewTableViewController.swift */; };
 		76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557EFE248F709F003572B1 /* AppDelegate.swift */; };
 		76557F01248F709F003572B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F00248F709F003572B1 /* SceneDelegate.swift */; };
 		76557F03248F709F003572B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F02248F709F003572B1 /* ViewController.swift */; };
@@ -81,6 +83,8 @@
 		70972F61DF4F7DE1912C2D04 /* Pods-HttpServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpServer.debug.xcconfig"; path = "Target Support Files/Pods-HttpServer/Pods-HttpServer.debug.xcconfig"; sourceTree = "<group>"; };
 		7638582824FC903D00ABEC80 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		7638589224FCA56B00ABEC80 /* MBProgressHUD+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBProgressHUD+Custom.swift"; sourceTree = "<group>"; };
+		7638589424FCC2B000ABEC80 /* TableListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableListViewController.swift; sourceTree = "<group>"; };
+		7638589624FCDC2D00ABEC80 /* NewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTableViewController.swift; sourceTree = "<group>"; };
 		76557EFB248F709F003572B1 /* HttpServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HttpServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76557EFE248F709F003572B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76557F00248F709F003572B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 				76DC1AC324F394A200650E2C /* FaltMapViewController.swift */,
 				76DC1ACC24F50CFD00650E2C /* ZipViewController.swift */,
 				7638582824FC903D00ABEC80 /* EmptyViewController.swift */,
+				7638589424FCC2B000ABEC80 /* TableListViewController.swift */,
+				7638589624FCDC2D00ABEC80 /* NewTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -559,7 +565,9 @@
 				7678F1E824B5C405006BBDD2 /* TransformerFactory.swift in Sources */,
 				76DC1AC924F4BAB500650E2C /* ScoreApi.swift in Sources */,
 				76DC1AC624F4ADCA00650E2C /* User.swift in Sources */,
+				7638589524FCC2B000ABEC80 /* TableListViewController.swift in Sources */,
 				76557F37248F8204003572B1 /* MyUDID.swift in Sources */,
+				7638589724FCDC2D00ABEC80 /* NewTableViewController.swift in Sources */,
 				76557F41248F8880003572B1 /* Moya+Extension.swift in Sources */,
 				7638589324FCA56B00ABEC80 /* MBProgressHUD+Custom.swift in Sources */,
 				76557F472490C23A003572B1 /* Keychain.swift in Sources */,
