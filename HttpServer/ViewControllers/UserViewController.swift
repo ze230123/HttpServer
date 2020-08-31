@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-class UserViewController: UIViewController {
+class UserViewController: BaseViewController {
     let disposeBag = DisposeBag()
 
     lazy var observer = ObjectObserver<User>({ [unowned self] in self.resultHandler($0) })
@@ -20,10 +20,16 @@ class UserViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.updateEmptyTitle("哈哈哈哈哈")
+        print("\(view.hashValue)")
+        request()
+    }
+
+    override func request() {
         let id = 14077053
 //        let id = 14077136
         Server.getUserInfo(id: id, disposeBag: disposeBag, callback: observer)
-        print("\(view.hashValue)")
     }
 
     func resultHandler(_ result: Result<User, HttpError>) {

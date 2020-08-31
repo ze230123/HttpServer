@@ -12,8 +12,7 @@ import MBProgressHUD
 typealias MBHUD = MBProgressHUD
 
 extension MBProgressHUD {
-    static func showLoading(to view: UIView, animated: Bool = true) -> MBProgressHUD {
-        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+    private static func updateLoadingHud(_ hud: MBProgressHUD) {
         hud.mode = .customView
         let loadview = LoadingView()
         loadview.start()
@@ -23,6 +22,17 @@ extension MBProgressHUD {
         hud.backgroundView.color = UIColor(white: 0, alpha: 0.3)
         hud.bezelView.style = .solidColor
         hud.bezelView.color = UIColor.white
+    }
+
+    static func loading(to view: UIView) -> MBProgressHUD {
+        let hud = MBProgressHUD(view: view)
+        updateLoadingHud(hud)
+        return hud
+    }
+
+    static func showLoading(to view: UIView, animated: Bool = true) -> MBProgressHUD {
+        let hud = MBProgressHUD.showAdded(to: view, animated: animated)
+        updateLoadingHud(hud)
         return hud
     }
 

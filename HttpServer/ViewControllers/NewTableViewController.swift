@@ -8,21 +8,19 @@
 
 import UIKit
 
-class NewTableViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-
+class NewTableViewController: BaseTableViewController {
     private var rows: Int = 0
-
-    private var pageIndex: Int = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.addRefreshHeader(target: self, action: #selector(loadData))
-        tableView.addRefreshFooter(target: self, action: #selector(moreData))
+        tableView.updateEmptyTitle("列表为空")
+        addRefreshHeader()
+        addRefreshFooter()
+
         loadData()
     }
 
-    func request(action: RefreshAction) {
+    override func request(action: RefreshAction) {
         view.showLoading(.image, isEnabled: rows == 0)
 
         let size: Int = 20
@@ -48,17 +46,5 @@ extension NewTableViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTableCell", for: indexPath)
         cell.textLabel?.text = "cellForRowAt: \(indexPath.row)"
         return cell
-    }
-}
-
-extension NewTableViewController {
-    @objc func loadData() {
-        pageIndex = 1
-        request(action: .load)
-    }
-
-    @objc func moreData() {
-        pageIndex += 1
-        request(action: .more)
     }
 }

@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,48 +18,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-jx-EOg">
-                                <rect key="frame" x="173.5" y="320.5" width="67" height="255"/>
+                                <rect key="frame" x="160" y="298" width="94" height="300"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
-                                        <rect key="frame" x="0.0" y="0.0" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
                                         <state key="normal" title="User"/>
                                         <connections>
                                             <segue destination="gPS-yI-4Jd" kind="show" id="V4d-ka-WRQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRO-x6-OAx">
-                                        <rect key="frame" x="0.0" y="45" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="45" width="94" height="30"/>
                                         <state key="normal" title="Flatmap"/>
                                         <connections>
                                             <segue destination="eg1-b6-vd4" kind="show" id="Qf4-cY-BTZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEK-iv-njz">
-                                        <rect key="frame" x="0.0" y="90" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="90" width="94" height="30"/>
                                         <state key="normal" title="Zip"/>
                                         <connections>
                                             <segue destination="lel-SH-peE" kind="show" id="tcw-gy-sLs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-FM-0s2">
-                                        <rect key="frame" x="0.0" y="135" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="135" width="94" height="30"/>
                                         <state key="normal" title="Empty"/>
                                         <connections>
                                             <segue destination="6NE-EU-v1S" kind="show" id="Rw4-ik-2I2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Miu-nX-4R2">
-                                        <rect key="frame" x="0.0" y="180" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="180" width="94" height="30"/>
                                         <state key="normal" title="TableList"/>
                                         <connections>
                                             <segue destination="xzX-8X-asd" kind="show" id="U8E-ZR-Mtb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tuy-p2-dmy">
-                                        <rect key="frame" x="0.0" y="225" width="67" height="30"/>
+                                        <rect key="frame" x="0.0" y="225" width="94" height="30"/>
                                         <state key="normal" title="NewTable"/>
                                         <connections>
                                             <segue destination="DSE-NL-sXl" kind="show" id="u9E-Ye-CRK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXR-Ny-bXz">
+                                        <rect key="frame" x="0.0" y="270" width="94" height="30"/>
+                                        <state key="normal" title="CollectionList"/>
+                                        <connections>
+                                            <segue destination="UUi-AO-L2z" kind="show" id="kvN-Fk-kl6"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -125,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMs-cO-Lkj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-642" y="925"/>
+            <point key="canvasLocation" x="1270" y="1396"/>
         </scene>
         <!--Table List View Controller-->
         <scene sceneID="VeG-Ic-ien">
@@ -154,7 +162,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQm-vK-p7O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="952"/>
+            <point key="canvasLocation" x="2083" y="1874"/>
         </scene>
         <!--Empty View Controller-->
         <scene sceneID="SD3-QS-Dds">
@@ -183,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMt-Oa-EJ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048" y="951"/>
+            <point key="canvasLocation" x="2725" y="1158"/>
         </scene>
         <!--Falt Map View Controller-->
         <scene sceneID="Eid-5D-XWz">
@@ -199,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ugl-y2-cjc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2084" y="226"/>
+            <point key="canvasLocation" x="2083" y="-273"/>
         </scene>
         <!--Zip View Controller-->
         <scene sceneID="Jgi-fD-Mtw">
@@ -215,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ads-FQ-esa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="951"/>
+            <point key="canvasLocation" x="2083" y="390"/>
         </scene>
         <!--User View Controller-->
         <scene sceneID="DPo-zE-aPa">
@@ -231,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kCx-Sk-2Qu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="-476"/>
+            <point key="canvasLocation" x="2083" y="-934"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m1a-fU-CnJ">
@@ -250,6 +258,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPc-FB-1b1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Collection List View Controller-->
+        <scene sceneID="Erz-Az-sef">
+            <objects>
+                <viewController id="UUi-AO-L2z" customClass="CollectionListViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ELY-JT-YfP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="e39-O6-J5v">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ant-Om-buB">
+                                    <size key="itemSize" width="414" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionListCell" id="427-Ka-dGQ" customClass="CollectionViewCell" customModule="HttpServer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nPY-D0-eJ2">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0A-0A-tZb">
+                                                    <rect key="frame" x="16" y="53.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="i0A-0A-tZb" firstAttribute="leading" secondItem="nPY-D0-eJ2" secondAttribute="leading" constant="16" id="agX-mC-H51"/>
+                                                <constraint firstItem="i0A-0A-tZb" firstAttribute="centerY" secondItem="nPY-D0-eJ2" secondAttribute="centerY" id="gtx-KU-4V0"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="414" height="128"/>
+                                        <connections>
+                                            <outlet property="label" destination="i0A-0A-tZb" id="n6O-ew-jRC"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="UUi-AO-L2z" id="lkA-BP-h35"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Y25-1A-kbi" firstAttribute="trailing" secondItem="e39-O6-J5v" secondAttribute="trailing" id="I0V-wu-W8d"/>
+                            <constraint firstItem="e39-O6-J5v" firstAttribute="top" secondItem="Y25-1A-kbi" secondAttribute="top" id="IAV-pa-X97"/>
+                            <constraint firstAttribute="bottom" secondItem="e39-O6-J5v" secondAttribute="bottom" id="TtE-33-GWK"/>
+                            <constraint firstItem="e39-O6-J5v" firstAttribute="leading" secondItem="Y25-1A-kbi" secondAttribute="leading" id="wUh-G7-urw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y25-1A-kbi"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="RkR-i7-pvy"/>
+                    <connections>
+                        <outlet property="collectionView" destination="e39-O6-J5v" id="EPH-lW-TlY"/>
+                        <outlet property="layout" destination="ant-Om-buB" id="M0p-Z1-UaY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rce-fC-6E3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="479.71014492753625" y="1395.5357142857142"/>
         </scene>
     </scenes>
 </document>
