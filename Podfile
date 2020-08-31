@@ -13,6 +13,9 @@ target 'HttpServer' do
   pod 'GRDB.swift/SQLCipher'
   pod 'KeychainSwift', '~> 19.0'
   pod 'BMKLocationKit'
+  pod 'MJRefresh'
+  pod 'MBProgressHUD'
+
   pod 'LookinServer', :configurations => ['Debug']
 
   target 'HttpServerTests' do

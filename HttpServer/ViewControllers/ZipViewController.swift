@@ -21,6 +21,7 @@ class ZipViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.zipLogin(id: 14077053, proId: 842, disposeBag: disposeBag, callback: observer)
+        print("\(view.hashValue)")
     }
 
     func resultHandler(_ result: Result<Login, HttpError>) {

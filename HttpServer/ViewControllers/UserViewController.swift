@@ -20,7 +20,10 @@ class UserViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.getUserInfo(id: 14077053, disposeBag: disposeBag, callback: observer)
+        let id = 14077053
+//        let id = 14077136
+        Server.getUserInfo(id: id, disposeBag: disposeBag, callback: observer)
+        print("\(view.hashValue)")
     }
 
     func resultHandler(_ result: Result<User, HttpError>) {
@@ -28,8 +31,10 @@ class UserViewController: UIViewController {
         case .success(let user):
             print(user)
         case .failure(let error):
-            print(error)
+            print("userError: ", error)
         }
+
+        view.showEmpty(true)
     }
 }
 

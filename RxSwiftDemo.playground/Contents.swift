@@ -193,3 +193,7 @@ Server.getAddId(1, callback: AddObserver({ (result) in
 //    throw MoyaError.jsonMapping(self)
 //}
 print(JSONSerialization.isValidJSONObject(""))
+
+
+let result: [[String: Any]] = []
+print(JSONSerialization.isValidJSONObject(result))

@@ -45,7 +45,7 @@ class LoggerPlugin: PluginType {
             print("数据: ", data ?? "无")
             print("------------------- 开始结束 -------------------")
         case .failure(let error):
-            print(error)
+            print("LoggerPlugin", error)
         }
     }
 }
@@ -73,7 +73,11 @@ extension HttpServer {
     }
 
     private func request(api: TargetType) -> Observable<Response> {
-        return provider.rx.request(MultiTarget(api)).asObservable()
+        return provider
+            .rx
+            .request(MultiTarget(api))
+            .asObservable()
+            .filterSuccessfulStatusCodes()
     }
 
     func request<Element>(api: TargetType & MoyaAddable, mapHandler: @escaping Observer<Element>.MapObjectHandler) -> Observable<Element> {
@@ -82,5 +86,32 @@ extension HttpServer {
 
     func toObservable<Element>(_ observable: Observable<Response>, strategy: BaseStrategy, mapHandler: @escaping Observer<Element>.MapObjectHandler) -> Observable<Element> {
         return strategy.execute(rxCache, handler: handler, observable: observable).map(mapHandler)
+    }
+}
+
+class ApiException {
+    static func handleException(_ error: Error) -> HttpError {
+        if let moyaError = error as? MoyaError {
+            switch moyaError {
+            case .statusCode(let reponse):
+                if reponse.statusCode == 408 {
+                    return HttpError.timeout
+                } else if reponse.statusCode == 401 {
+                    return HttpError.noAuthority
+                } else {
+                    return HttpError.noNetwork
+                }
+            case .stringMapping, .jsonMapping, .imageMapping, .objectMapping:
+                return HttpError.dataMapping
+            case let .underlying(error, _):
+                return HttpError.message(error.localizedDescription)
+            default:
+                return HttpError.requestMapping
+            }
+        } else if let httpError = error as? HttpError {
+            return httpError
+        } else {
+            return .unknown
+        }
     }
 }

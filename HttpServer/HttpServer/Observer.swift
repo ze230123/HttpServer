@@ -40,7 +40,7 @@ class Observer<Element>: ObserverType {
         case .next(let item):
             handler(.success(item))
         case .error(let error):
-            handler(.failure(self.catchError(error)))
+            handler(.failure(catchError(error)))
         case .completed: break
         }
     }
@@ -50,8 +50,7 @@ class Observer<Element>: ObserverType {
     }
 
     private func catchError(_ error: Error) -> HttpError {
-        print(error)
-        return HttpError.noCache
+        return ApiException.handleException(error)
     }
 }
 

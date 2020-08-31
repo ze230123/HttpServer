@@ -41,6 +41,7 @@ class BaseStrategy {
     ///   - needEmpty: Bool类型，true：没找到缓存时返回Empty，false：正常返回
     /// - Returns: Observable<String>类型的可观察对象
     func loadCache(_ rxCache: RxCache, needEmpty: Bool) -> Observable<String> {
+        print("加载缓存")
         var observable = rxCache.load(config.api + config.parameter).map { (value) -> String in
             guard let new = value else {
                 throw HttpError.noCache
@@ -56,6 +57,7 @@ class BaseStrategy {
     }
 
     func loadRemote(_ rxCache: RxCache, observable: Observable<Response>) -> Observable<String> {
+        print("加载远程")
         let key = config.key
         let expiry = config.expiry
 
@@ -100,12 +102,7 @@ class CacheAndRemoteDistinctStrategy: BaseStrategy {
         } else {
             let cache = loadCache(rxCache, needEmpty: true)
             let remote = loadRemote(rxCache, observable: observable)
-            return Observable.concat(cache, remote).filter( { !$0.isEmpty } ).distinctUntilChanged { (str1, str2) -> Bool in
-                print("对比str1: ", str1)
-                print("对比str2: ", str2)
-                print(str1 == str2)
-                return str1 == str2
-            }
+            return Observable.concat(cache, remote).filter( { !$0.isEmpty } ).distinctUntilChanged(==)
         }
     }
 }
@@ -142,18 +139,241 @@ class FirstRequestStrategy: BaseStrategy {
     }
 }
 
-
 extension Response {
     /// 取出返回数据中的`result`，在将其转换为string返回
+    /// `result`如果是String，直接返回`result`
     func mapResultValue() throws -> String {
         guard let json = try mapJSON() as? [String: Any],
          let result = json["result"] else {
             throw MoyaError.stringMapping(self)
         }
         guard JSONSerialization.isValidJSONObject(result) else {
+            if let data = result as? String {
+                return data
+            }
             throw MoyaError.jsonMapping(self)
         }
         let data = try JSONSerialization.data(withJSONObject: result, options: [])
         return String(data: data, encoding: .utf8) ?? ""
+    }
+}
+
+fileprivate var errorViews: [Int: UIView] = [:]
+fileprivate var emptyViews: [Int: UIView] = [:]
+fileprivate var loadingViews: [Int: UIView] = [:]
+
+fileprivate struct Keys {
+    static var empty = "empty"
+    static var error = "error"
+    static var loading = "loading"
+    static var imageHud = "imageHud"
+}
+
+extension UIView {
+    /// 错误提示View
+    private var errorView: UIView? {
+        set {
+            objc_setAssociatedObject(self, &Keys.error, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &Keys.error) as? UIView
+        }
+    }
+
+    /// 无数据页面提示View
+    private var emptyView: UIView? {
+        set {
+            objc_setAssociatedObject(self, &Keys.empty, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &Keys.empty) as? UIView
+        }
+    }
+
+    /// 加载动画View
+    private var imageLoadingView: LoadAnimateable? {
+        set {
+            objc_setAssociatedObject(self, &Keys.loading, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &Keys.loading) as? LoadAnimateable
+        }
+    }
+
+    private var imageHudLoadingView: MBHUD? {
+        set {
+            objc_setAssociatedObject(self, &Keys.imageHud, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &Keys.imageHud) as? MBHUD
+        }
+    }
+
+    func showError(_ error: HttpError) {
+        reset()
+    }
+
+    func showEmpty(_ isEmpty: Bool) {
+        reset()
+
+        guard isEmpty else { return }
+
+        func addEmptyView(_ emptyView: UIView) {
+            emptyView.frame = bounds
+            emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            addSubview(emptyView)
+        }
+
+        if let empty = emptyView {
+            addEmptyView(empty)
+        } else {
+            let view = EmptyView()
+            addEmptyView(view)
+            emptyView = view
+        }
+    }
+
+    func showLoading(_ style: LoadingStyle) {
+        reset()
+        switch style {
+        case .image:
+            showImageLoadingView()
+        case .imageHud:
+            showImageHudLoadingView()
+        case .normalHud:
+            showNormalHud()
+        }
+    }
+
+    private func showImageLoadingView() {
+        func addLoadingView(_ loadingView: LoadAnimateable) {
+            loadingView.frame = bounds
+            loadingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            addSubview(loadingView)
+        }
+
+        if let loadingView = imageLoadingView {
+            addLoadingView(loadingView)
+        } else {
+            let view = LoadingView()
+            view.start()
+            addLoadingView(view)
+            imageLoadingView = view
+        }
+    }
+
+    private func showImageHudLoadingView() {
+        if let hud = imageHudLoadingView {
+            addSubview(hud)
+            hud.show(animated: true)
+        } else {
+            imageHudLoadingView = MBHUD.showLoading(to: self)
+        }
+    }
+
+    private func showNormalHud() {
+        MBHUD.showCustomAdded(to: self, animated: true)
+    }
+
+    private func reset() {
+        errorView?.removeFromSuperview()
+        emptyView?.removeFromSuperview()
+        imageLoadingView?.removeFromSuperview()
+//        imageHudLoadingView?.hide(animated: true)
+        MBHUD.hide(for: self, animated: true)
+    }
+}
+
+extension UIView {
+    enum LoadingStyle {
+        /// 图片动画(全屏)
+        case image
+        /// 图片动画(缩略图)
+        case imageHud
+        /// 默认菊花
+        case normalHud
+
+        static func random() -> LoadingStyle {
+            let arr: [LoadingStyle] = [.image, .imageHud, .normalHud]
+            return arr.randomElement()!
+        }
+    }
+}
+
+class EmptyView: UIView {
+    lazy var label = UILabel()
+
+    deinit {
+        print("EmptyView_deinit")
+    }
+
+    init() {
+        super.init(frame: .zero)
+        setup()
+    }
+
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension EmptyView {
+    func setup() {
+        label.text = "没有数据"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
+        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+}
+
+protocol LoadAnimateable where Self: UIView {
+    func start()
+    func stop()
+}
+
+class LoadingView: UIView, LoadAnimateable {
+    lazy var indicator = UIActivityIndicatorView(style: .gray)
+
+    deinit {
+        stop()
+        print("LoadingView_deinit")
+    }
+
+    init() {
+        super.init(frame: .zero)
+        setup()
+    }
+
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func start() {
+        indicator.startAnimating()
+    }
+
+    func stop() {
+        indicator.stopAnimating()
+    }
+}
+
+extension LoadingView {
+    func setup() {
+        backgroundColor = .cyan
+
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(indicator)
+        indicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        indicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

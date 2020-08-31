@@ -18,8 +18,8 @@ extension UserApi: TargetType, MoyaAddable {
     var policy: CachePolicy {
         switch self {
         case .info:
-//            return .cacheAndRequest(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
-            return .firstCache(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
+            return .cacheAndRequest(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
+//            return .firstCache(CacheConfig(path: path, parameters: task.parameters, module: .other, expiry: .time(.month(1))))
         }
     }
 

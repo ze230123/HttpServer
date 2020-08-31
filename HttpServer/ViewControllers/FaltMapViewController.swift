@@ -22,6 +22,7 @@ class FaltMapViewController: UIViewController {
         super.viewDidLoad()
 //        Server.getScore(numId: 14077053, proId: 842, disposeBag: disposeBag, callback: observer)
         Server.login(id: 14077053, disposeBag: disposeBag, callback: observer)
+        print("\(view.hashValue)")
     }
 
     func resultHandler(_ result: Result<Login, HttpError>) {
