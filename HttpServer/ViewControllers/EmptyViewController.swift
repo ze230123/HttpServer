@@ -8,8 +8,11 @@
 
 import UIKit
 
+/// 刷新行为
 enum RefreshAction {
+    /// 加载数据
     case load
+    /// 加载更多数据
     case more
 }
 
@@ -48,3 +51,8 @@ class EmptyViewController: UIViewController {
         request(action: .load)
     }
 }
+
+//extension EmptyViewController: HttpResultable {
+//    func resultHandler(_ result: Result<User, HttpError>, action: RefreshAction) {
+//    }
+//}

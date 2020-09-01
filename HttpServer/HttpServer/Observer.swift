@@ -26,12 +26,14 @@ class Observer<Element>: ObserverType {
     typealias MapObjectHandler = (String) throws -> Element
 
     private let handler: EventHandler
+    let disposeBag: DisposeBag
 
     deinit {
         print("\(self)_deinit")
     }
 
-    init(_ handler: @escaping EventHandler) {
+    init(disposeBag: DisposeBag, handler: @escaping EventHandler) {
+        self.disposeBag = disposeBag
         self.handler = handler
     }
 

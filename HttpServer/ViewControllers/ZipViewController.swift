@@ -12,7 +12,9 @@ import RxSwift
 class ZipViewController: UIViewController {
     let disposeBag = DisposeBag()
 
-    lazy var observer = LoginObserver({ [unowned self] in self.resultHandler($0) })
+    lazy var observer = LoginObserver(disposeBag: disposeBag) { [unowned self] (result) in
+        self.resultHandler(result)
+    }
 
     deinit {
         print("ZipViewController_deinit")
@@ -20,7 +22,7 @@ class ZipViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.zipLogin(id: 14077053, proId: 842, disposeBag: disposeBag, callback: observer)
+        Server.zipLogin(id: 14077053, proId: 842, callback: observer)
         print("\(view.hashValue)")
     }
 
@@ -32,16 +34,4 @@ class ZipViewController: UIViewController {
             print(error)
         }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

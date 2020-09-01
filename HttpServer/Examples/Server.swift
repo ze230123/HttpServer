@@ -12,21 +12,21 @@ import RxSwift
 class Server {
     static private let server = HttpServer.share
 
-    static func getUserInfo(id: Int, disposeBag: DisposeBag, callback: ObjectObserver<User>) {
+    static func getUserInfo(id: Int, callback: ObjectObserver<User>) {
         server
             .request(api: UserApi.info(id: id), mapHandler: callback.mapObject())
             .subscribe(callback)
-            .disposed(by: disposeBag)
+            .disposed(by: callback.disposeBag)
     }
 
-    static func getScore(numId: Int, proId: Int, disposeBag: DisposeBag, callback: ObjectObserver<Score>) {
+    static func getScore(numId: Int, proId: Int, callback: ObjectObserver<Score>) {
         server
             .request(api: ScoreApi.getByUser(numId: numId, proId: proId), mapHandler: callback.mapObject())
             .subscribe(callback)
-            .disposed(by: disposeBag)
+            .disposed(by: callback.disposeBag)
     }
 
-    static func login(id: Int, disposeBag: DisposeBag, callback: LoginObserver) {
+    static func login(id: Int, callback: LoginObserver) {
         server
             .request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
             .flatMap { (user) -> Observable<Login> in
@@ -35,16 +35,16 @@ class Server {
                     .map { (score) -> Login in
                         return Login(user: user, score: score)
                     }
-            }.subscribe(callback).disposed(by: disposeBag)
+            }.subscribe(callback).disposed(by: callback.disposeBag)
     }
 
-    static func zipLogin(id: Int, proId: Int, disposeBag: DisposeBag, callback: LoginObserver) {
+    static func zipLogin(id: Int, proId: Int, callback: LoginObserver) {
         let userRequest = server.request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
         let scoreRequest = server.request(api: ScoreApi.getByUser(numId: id, proId: proId), mapHandler: callback.mapScore())
         Observable<Login>
             .zip(userRequest, scoreRequest, resultSelector: callback.mapLogin())
             .subscribe(callback)
-            .disposed(by: disposeBag)
+            .disposed(by: callback.disposeBag)
     }
 }
 

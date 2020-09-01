@@ -12,7 +12,7 @@ import RxSwift
 class FaltMapViewController: UIViewController {
     let disposeBag = DisposeBag()
 
-    lazy var observer = LoginObserver({ [unowned self] in self.resultHandler($0) })
+//    lazy var observer = LoginObserver({ [unowned self] in self.resultHandler($0) })
 
     deinit {
         print("FaltMapViewController_deinit")
@@ -21,7 +21,7 @@ class FaltMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        Server.getScore(numId: 14077053, proId: 842, disposeBag: disposeBag, callback: observer)
-        Server.login(id: 14077053, disposeBag: disposeBag, callback: observer)
+//        Server.login(id: 14077053, disposeBag: disposeBag, callback: observer)
         print("\(view.hashValue)")
     }
 

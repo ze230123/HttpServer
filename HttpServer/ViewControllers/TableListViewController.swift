@@ -31,6 +31,7 @@ class TableListViewController: UITableViewController {
         loadData()
     }
 
+    
     func request(action: RefreshAction) {
         view.showLoading(.image)
 

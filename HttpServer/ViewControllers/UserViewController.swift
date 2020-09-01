@@ -9,10 +9,11 @@
 import UIKit
 import RxSwift
 
-class UserViewController: BaseViewController {
-    let disposeBag = DisposeBag()
 
-    lazy var observer = ObjectObserver<User>({ [unowned self] in self.resultHandler($0) })
+class UserViewController: BaseViewController {
+    lazy var observer = ObjectObserver<User>.init(disposeBag: self.disposeBag) { [unowned self] (result) in
+        self.resultHandler(result)
+    }
 
     deinit {
         print("UserViewController_deinit")
@@ -28,9 +29,12 @@ class UserViewController: BaseViewController {
 
     override func request() {
         let id = 14077053
-//        let id = 14077136
-        Server.getUserInfo(id: id, disposeBag: disposeBag, callback: observer)
+        Server.getUserInfo(id: id, callback: observer)
     }
+}
+
+extension UserViewController: HttpResultHandler {
+    typealias Element = User
 
     func resultHandler(_ result: Result<User, HttpError>) {
         switch result {
@@ -39,12 +43,6 @@ class UserViewController: BaseViewController {
         case .failure(let error):
             print("userError: ", error)
         }
-
         view.showEmpty(true)
     }
-}
-
-protocol HttpServerHandler {
-    associatedtype Element
-    func resultHandler(_ result: Result<Element, HttpError>)
 }

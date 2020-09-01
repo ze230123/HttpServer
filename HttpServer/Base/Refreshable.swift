@@ -10,7 +10,6 @@ import UIKit
 
 protocol Refreshable: class {
     var pageIndex: Int { get set }
-
     func loadData()
     func moreData()
 }
@@ -30,12 +29,12 @@ extension Refreshable where Self: BaseTableViewController {
 
     func loadData() {
         pageIndex = 1
-        request(action: .load)
+        willRequest(action: .load)
     }
 
     func moreData() {
         pageIndex += 1
-        request(action: .more)
+        willRequest(action: .more)
     }
 }
 
@@ -54,11 +53,11 @@ extension Refreshable where Self: BaseCollectionViewController {
 
     func loadData() {
         pageIndex = 1
-        request(action: .load)
+        willRequest(action: .load)
     }
 
     func moreData() {
         pageIndex += 1
-        request(action: .more)
+        willRequest(action: .more)
     }
 }
