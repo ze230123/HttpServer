@@ -41,8 +41,7 @@ class BaseStrategy {
     ///   - needEmpty: Bool类型，true：没找到缓存时返回Empty，false：正常返回
     /// - Returns: Observable<String>类型的可观察对象
     func loadCache(_ rxCache: RxCache, needEmpty: Bool) -> Observable<String> {
-        print("加载缓存")
-        var observable = rxCache.load(config.api + config.parameter).map { (value) -> String in
+        var observable = rxCache.load(config.key).map { (value) -> String in
             guard let new = value else {
                 throw HttpError.noCache
             }
@@ -57,7 +56,6 @@ class BaseStrategy {
     }
 
     func loadRemote(_ rxCache: RxCache, observable: Observable<Response>) -> Observable<String> {
-        print("加载远程")
         let key = config.key
         let expiry = config.expiry
 
@@ -81,7 +79,7 @@ class BaseStrategy {
 
 class NoCacheStrategy: BaseStrategy {
     override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
-        if handler.invalid(api: config.path, parameter: config.parameter) {
+        if handler.invalid(api: config.api, parameter: config.parameters) {
             return Observable.error(HttpError.frequently)
         } else {
             return observable.map { (response) -> String in
@@ -97,7 +95,7 @@ class NoCacheStrategy: BaseStrategy {
 /// 等网络返回后，发现数据一样就不会返回，不同则会再次返回网络的数据
 class CacheAndRemoteDistinctStrategy: BaseStrategy {
     override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
-        if handler.invalid(api: config.path, parameter: config.parameter) {
+        if handler.invalid(api: config.api, parameter: config.parameters) {
             return loadCache(rxCache, needEmpty: false)
         } else {
             let cache = loadCache(rxCache, needEmpty: true)
@@ -113,7 +111,7 @@ class CacheAndRemoteDistinctStrategy: BaseStrategy {
 /// 如果次数超出规定限制，直接读取缓存
 class FirstCacheStrategy: BaseStrategy {
     override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
-        if handler.invalid(api: config.path, parameter: config.parameter) {
+        if handler.invalid(api: config.api, parameter: config.parameters) {
             return loadCache(rxCache, needEmpty: false)
         } else {
             let cache = loadCache(rxCache, needEmpty: true)
@@ -129,7 +127,7 @@ class FirstCacheStrategy: BaseStrategy {
 /// 如果次数超出规定限制 直接读取缓存
 class FirstRequestStrategy: BaseStrategy {
     override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
-        if handler.invalid(api: config.api, parameter: config.parameter) {
+        if handler.invalid(api: config.api, parameter: config.parameters) {
             return loadCache(rxCache, needEmpty: false)
         } else {
             let cache = loadCache(rxCache, needEmpty: true)

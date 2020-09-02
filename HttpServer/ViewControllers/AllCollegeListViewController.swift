@@ -1,0 +1,96 @@
+//
+//  AllCollegeListViewController.swift
+//  HttpServer
+//
+//  Created by youzy01 on 2020/9/1.
+//  Copyright © 2020 youzy. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+
+class CollegeListCollectionCell: UICollectionViewCell, CellConfigurable {
+    @IBOutlet weak var collegeView: CollegeListView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        contentView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview()
+            make.width.equalTo(ScreenW)
+        }
+    }
+
+    static var nib: UINib? {
+        return UINib(nibName: reuseableIdentifier, bundle: nil)
+    }
+
+    func configure(_ item: CollegeListModel) {
+        collegeView.configure(item)
+    }
+}
+
+class AllCollegeListViewController: BaseCollectionViewController {
+    @IBOutlet weak var layout: UICollectionViewFlowLayout!
+
+    lazy var observer = AllCollegeObserver(disposeBag: self.disposeBag) { [unowned self] (result) in
+        self.resultHandler(result)
+    }
+
+    lazy var parameter = AllCollegeParameter()
+
+    var dataSource: CollegeList = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: ScreenW, height: 100)
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        layout.minimumLineSpacing = 5
+
+        addRefreshHeader()
+        addRefreshFooter()
+
+        loadData()
+    }
+
+    override func request(action: RefreshAction) {
+        super.request(action: action)
+        parameter.pageIndex = pageIndex
+        view.showLoading(.image, isEnabled: dataSource.isEmpty)
+        Server.collegeAllList(parameter: parameter, observer: observer)
+    }
+}
+
+extension AllCollegeListViewController: HttpResultHandler {
+    typealias Element = CollegeList
+    func resultHandler(_ result: Result<CollegeList, HttpError>) {
+        view.stopLoading()
+        var isNotData: Bool = false
+        switch result {
+        case .success(let list):
+            print(list.count)
+            if action == .load {
+                dataSource.removeAll()
+            }
+            dataSource.append(contentsOf: list)
+            isNotData = list.count < parameter.pageSize
+            collectionView.reloadDataAndCheckEmpty()
+        case .failure(let error):
+            view.showError(error)
+        }
+        collectionView.endRefresh(action, isNotData: isNotData)
+    }
+}
+
+extension AllCollegeListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeReusableCell(indexPath: indexPath) as CollegeListCollectionCell
+        cell.configure(dataSource[indexPath.item])
+        return cell
+    }
+}

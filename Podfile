@@ -15,6 +15,8 @@ target 'HttpServer' do
   pod 'BMKLocationKit'
   pod 'MJRefresh'
   pod 'MBProgressHUD'
+  pod 'SnapKit'
+  pod 'SDWebImage'
 
   pod 'LookinServer', :configurations => ['Debug']
 

@@ -14,6 +14,10 @@ PODS:
     - RxSwift (~> 5.0)
   - ObjectMapper (4.2.0)
   - RxSwift (5.1.1)
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - SnapKit (5.0.1)
   - SQLCipher (4.4.0):
     - SQLCipher/standard (= 4.4.0)
   - SQLCipher/common (4.4.0)
@@ -29,6 +33,8 @@ DEPENDENCIES:
   - MJRefresh
   - Moya/RxSwift
   - ObjectMapper
+  - SDWebImage
+  - SnapKit
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
@@ -42,6 +48,8 @@ SPEC REPOS:
     - Moya
     - ObjectMapper
     - RxSwift
+    - SDWebImage
+    - SnapKit
     - SQLCipher
 
 SPEC CHECKSUMS:
@@ -55,8 +63,10 @@ SPEC CHECKSUMS:
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SQLCipher: e434ed542b24f38ea7b36468a13f9765e1b5c072
 
-PODFILE CHECKSUM: 3d097dd0515ea79f7e2f0651000fb5ffbea23c25
+PODFILE CHECKSUM: fa2a2b777b705d71b27e9199ef6eedd3f7249645
 
 COCOAPODS: 1.9.1

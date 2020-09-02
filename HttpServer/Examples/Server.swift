@@ -46,5 +46,23 @@ class Server {
             .subscribe(callback)
             .disposed(by: callback.disposeBag)
     }
+
+    static func collegeAllList(parameter: AllCollegeParameter, observer: AllCollegeObserver) {
+        server
+            .request(api: CollegeApi.all(parameter), mapHandler: observer.mapObject())
+            .subscribe(observer)
+            .disposed(by: observer.disposeBag)
+    }
 }
 
+typealias CollegeList = [CollegeListModel]
+
+class AllCollegeObserver: Observer<CollegeList> {
+    override func mapObject() -> Observer<CollegeList>.MapObjectHandler {
+        return { value in
+            let item = try ObjectMapHandler<NewCollegeList>().map(value)
+            let list = item.items.map { CollegeListModel(item: $0) }
+            return list
+        }
+    }
+}

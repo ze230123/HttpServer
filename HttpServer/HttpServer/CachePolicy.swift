@@ -8,6 +8,30 @@
 
 import Moya
 
+private extension Dictionary where Key == String, Value == Any {
+    func toString() -> String {
+        if #available(iOS 11.0, *) {
+            guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.sortedKeys]),
+                let value = String(data: data, encoding: .utf8) else {
+                    return ""
+            }
+            return value
+        } else {
+            func formate(_ parameters: [String: Any]) -> String {
+                let arr = parameters.map { (item) -> String in
+                    if let dict = item.value as? [String: Any] {
+                        return formate(dict)
+                    } else {
+                        return "\(item.key)=\(item.value)"
+                    }
+                }
+                let value = arr.sorted().joined(separator: ",")
+                return value
+            }
+            return formate(self)
+        }
+    }
+}
 
 /// 缓存配置
 ///
@@ -33,37 +57,21 @@ struct CacheConfig {
         }
     }
 
-    var path: String
-    var parameters: Parameters
-    var module: Module
-    var expiry: Expiry
+    let api: String
+    let parameters: String
+    let module: Module
+    let expiry: Expiry
 
-    init(path: String, parameters: Parameters) {
-        self.path = path
-        self.parameters = parameters
-        self.module = .other
-        self.expiry = .never
-    }
-
-    init(path: String, parameters: Parameters, module: Module, expiry: Expiry) {
-        self.path = path
-        self.parameters = parameters
+    init(path: String, parameters: Parameters, module: Module = .other, expiry: Expiry = .never) {
+        self.api = path
+        self.parameters = parameters.toString()
         self.module = module
         self.expiry = expiry
     }
 
-    var api: String {
-        return path
-    }
-
-    var parameter: String {
-        let keyValue = parameters.map { "\($0.key)\($0.value)"}.sorted().joined(separator: "")
-        return keyValue + module.value
-    }
-
     /// 缓存key
     var key: String {
-        return api + parameter
+        return api + parameters + module.value
     }
 }
 
