@@ -7,9 +7,10 @@
 //
 
 import Moya
-
+/// 将参数字典转换为字符串
 private extension Dictionary where Key == String, Value == Any {
     func toString() -> String {
+        // iOS 11 以上的系统使用JSONSerialization转换为json字符串
         if #available(iOS 11.0, *) {
             guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.sortedKeys]),
                 let value = String(data: data, encoding: .utf8) else {
@@ -17,6 +18,7 @@ private extension Dictionary where Key == String, Value == Any {
             }
             return value
         } else {
+            // iOS 11 以下的系统手动转换
             func formate(_ parameters: [String: Any]) -> String {
                 let arr = parameters.map { (item) -> String in
                     if let dict = item.value as? [String: Any] {

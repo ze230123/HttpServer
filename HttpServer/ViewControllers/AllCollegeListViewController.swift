@@ -8,6 +8,19 @@
 
 import UIKit
 import SnapKit
+/// 院校数组
+typealias CollegeList = [CollegeListModel]
+
+/// 全部院校回调
+class AllCollegeObserver: ListObserver<CollegeListModel> {
+    override func mapObject() -> (String) throws -> [CollegeListModel] {
+        return { value in
+            let item = try ObjectMapHandler<NewCollegeList>().map(value)
+            let list = item.items.map { CollegeListModel(item: $0) }
+            return list
+        }
+    }
+}
 
 class CollegeListCollectionCell: UICollectionViewCell, CellConfigurable {
     @IBOutlet weak var collegeView: CollegeListView!
@@ -32,14 +45,12 @@ class CollegeListCollectionCell: UICollectionViewCell, CellConfigurable {
 class AllCollegeListViewController: BaseCollectionViewController {
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
 
-    lazy var observer = AllCollegeObserver(disposeBag: self.disposeBag) { [unowned self] (result) in
-        self.resultHandler(result)
-    }
+    lazy var observer = AllCollegeObserver(disposeBag: disposeBag, observer: self)
 
     lazy var parameter = AllCollegeParameter()
 
     var dataSource: CollegeList = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -92,5 +103,17 @@ extension AllCollegeListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeReusableCell(indexPath: indexPath) as CollegeListCollectionCell
         cell.configure(dataSource[indexPath.item])
         return cell
+    }
+}
+
+extension AllCollegeListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = dataSource[indexPath.item]
+//        let alert = UIAlertController(title: item.name, message: nil, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "确定", style: .default, handler: nil)
+//        alert.addAction(okAction)
+//        present(alert, animated: true, completion: nil)
+        let vc = CollegeDetailsViewController(id: item.numId, name: item.name)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

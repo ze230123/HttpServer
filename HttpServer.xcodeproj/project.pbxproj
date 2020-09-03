@@ -53,6 +53,9 @@
 		76557F492490E0E3003572B1 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F482490E0E3003572B1 /* KeychainTests.swift */; };
 		76557F4A2490E11F003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
 		76557F4B2490E121003572B1 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F462490C23A003572B1 /* Keychain.swift */; };
+		7674E98324FF67F800B19869 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E98224FF67F800B19869 /* UserDefaults.swift */; };
+		7674E98824FF69CF00B19869 /* CollegeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E98624FF69CF00B19869 /* CollegeDetailsViewController.swift */; };
+		7674E98924FF69CF00B19869 /* CollegeDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7674E98724FF69CF00B19869 /* CollegeDetailsViewController.xib */; };
 		7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */; };
 		7678F1DB24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1DA24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift */; };
 		7678F1DC24B5690E006BBDD2 /* RequestCountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */; };
@@ -151,6 +154,9 @@
 		76557F442490A69A003572B1 /* RxCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCache.swift; sourceTree = "<group>"; };
 		76557F462490C23A003572B1 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		76557F482490E0E3003572B1 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
+		7674E98224FF67F800B19869 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		7674E98624FF69CF00B19869 /* CollegeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeDetailsViewController.swift; sourceTree = "<group>"; };
+		7674E98724FF69CF00B19869 /* CollegeDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollegeDetailsViewController.xib; sourceTree = "<group>"; };
 		7678F1CD24B30B53006BBDD2 /* HttpServer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCountHandler.swift; sourceTree = "<group>"; };
 		7678F1DA24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFrequencyDatabaseTests.swift; sourceTree = "<group>"; };
@@ -284,6 +290,7 @@
 		76557EFD248F709F003572B1 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
+				7674E98124FF67E500B19869 /* SwiftyUserDefaults */,
 				763858AA24FCF71800ABEC80 /* Views */,
 				763858A324FCF2EB00ABEC80 /* Extension */,
 				7638589824FCE0E000ABEC80 /* Base */,
@@ -352,6 +359,8 @@
 				7638589624FCDC2D00ABEC80 /* NewTableViewController.swift */,
 				763858A124FCEDEE00ABEC80 /* CollectionListViewController.swift */,
 				763858B524FE307C00ABEC80 /* AllCollegeListViewController.swift */,
+				7674E98624FF69CF00B19869 /* CollegeDetailsViewController.swift */,
+				7674E98724FF69CF00B19869 /* CollegeDetailsViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -368,20 +377,21 @@
 		76557F33248F7B0A003572B1 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				76E834B124FF476E002F2356 /* Server */,
+				76E834B024FF475E002F2356 /* Utils */,
+				76E834AF24FF4749002F2356 /* Model */,
+				76E834AE24FF4735002F2356 /* Api */,
 				763858B724FE30FD00ABEC80 /* Views */,
-				76557F3E248F86EF003572B1 /* ApiSignature.swift */,
-				76557F3C248F86B6003572B1 /* Data+Extensions.swift */,
-				76557F3A248F8687003572B1 /* String+Security.swift */,
-				76557F36248F8204003572B1 /* MyUDID.swift */,
-				76557F34248F7B37003572B1 /* UserApi.swift */,
-				76DC1AC824F4BAB500650E2C /* ScoreApi.swift */,
-				76DC1AC524F4ADCA00650E2C /* User.swift */,
-				76DC1ACA24F4BCA500650E2C /* Score.swift */,
-				76DC1AD024F5156C00650E2C /* Server.swift */,
-				763858B124FE2B3400ABEC80 /* CollegeApi.swift */,
-				763858B324FE2E1400ABEC80 /* College.swift */,
 			);
 			path = Examples;
+			sourceTree = "<group>";
+		};
+		7674E98124FF67E500B19869 /* SwiftyUserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				7674E98224FF67F800B19869 /* UserDefaults.swift */,
+			);
+			path = SwiftyUserDefaults;
 			sourceTree = "<group>";
 		};
 		7678F1E424B5C339006BBDD2 /* Cache */ = {
@@ -393,6 +403,45 @@
 				7678F1E924B5C42A006BBDD2 /* DiskStorage.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		76E834AE24FF4735002F2356 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				76557F34248F7B37003572B1 /* UserApi.swift */,
+				76DC1AC824F4BAB500650E2C /* ScoreApi.swift */,
+				763858B124FE2B3400ABEC80 /* CollegeApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		76E834AF24FF4749002F2356 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				76DC1AC524F4ADCA00650E2C /* User.swift */,
+				76DC1ACA24F4BCA500650E2C /* Score.swift */,
+				763858B324FE2E1400ABEC80 /* College.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		76E834B024FF475E002F2356 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				76557F3E248F86EF003572B1 /* ApiSignature.swift */,
+				76557F3C248F86B6003572B1 /* Data+Extensions.swift */,
+				76557F3A248F8687003572B1 /* String+Security.swift */,
+				76557F36248F8204003572B1 /* MyUDID.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		76E834B124FF476E002F2356 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				76DC1AD024F5156C00650E2C /* Server.swift */,
+			);
+			path = Server;
 			sourceTree = "<group>";
 		};
 		7F28E2AF7FB468F469FDDAFA /* Pods */ = {
@@ -520,6 +569,7 @@
 				76557F0B248F70A0003572B1 /* LaunchScreen.storyboard in Resources */,
 				76557F08248F70A0003572B1 /* Assets.xcassets in Resources */,
 				763858BA24FE311200ABEC80 /* CollegeListView.xib in Resources */,
+				7674E98924FF69CF00B19869 /* CollegeDetailsViewController.xib in Resources */,
 				76557F06248F709F003572B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,6 +714,7 @@
 				7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */,
 				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
 				763858BD24FE313A00ABEC80 /* NibLoadable.swift in Sources */,
+				7674E98324FF67F800B19869 /* UserDefaults.swift in Sources */,
 				763858B024FE13BE00ABEC80 /* HttpResultHandler.swift in Sources */,
 				76DC1ACD24F50CFD00650E2C /* ZipViewController.swift in Sources */,
 				76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */,
@@ -677,6 +728,7 @@
 				76DC1AC624F4ADCA00650E2C /* User.swift in Sources */,
 				7638589A24FCE11500ABEC80 /* Refreshable.swift in Sources */,
 				7638589524FCC2B000ABEC80 /* TableListViewController.swift in Sources */,
+				7674E98824FF69CF00B19869 /* CollegeDetailsViewController.swift in Sources */,
 				76557F37248F8204003572B1 /* MyUDID.swift in Sources */,
 				7638589724FCDC2D00ABEC80 /* NewTableViewController.swift in Sources */,
 				76557F41248F8880003572B1 /* Moya+Extension.swift in Sources */,

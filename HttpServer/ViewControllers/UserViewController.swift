@@ -11,9 +11,7 @@ import RxSwift
 
 
 class UserViewController: BaseViewController {
-    lazy var observer = ObjectObserver<User>.init(disposeBag: self.disposeBag) { [unowned self] (result) in
-        self.resultHandler(result)
-    }
+    lazy var newObserver = NewObjectObserver<User>(disposeBag: self.disposeBag, observer: self)
 
     deinit {
         print("UserViewController_deinit")
@@ -29,7 +27,7 @@ class UserViewController: BaseViewController {
 
     override func request() {
         let id = 14077053
-        Server.getUserInfo(id: id, callback: observer)
+        Server.getUserInfo(id: id, callback: newObserver)
     }
 }
 

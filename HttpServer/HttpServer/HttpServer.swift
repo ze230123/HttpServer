@@ -87,6 +87,14 @@ extension HttpServer {
     func toObservable<Element>(_ observable: Observable<Response>, strategy: BaseStrategy, mapHandler: @escaping Observer<Element>.MapObjectHandler) -> Observable<Element> {
         return strategy.execute(rxCache, handler: handler, observable: observable).map(mapHandler)
     }
+
+    func newRequest<Oberver, Element>(api: TargetType & MoyaAddable, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
+        return newToObservable(request(api: api), strategy: api.policy.strategy, oberver: oberver)
+    }
+
+    func newToObservable<Oberver, Element>(_ observable: Observable<Response>, strategy: BaseStrategy, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
+        return strategy.execute(rxCache, handler: handler, observable: observable).map(oberver.mapObject())
+    }
 }
 
 class ApiException {

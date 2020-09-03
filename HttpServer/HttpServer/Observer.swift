@@ -20,6 +20,15 @@ class ObjectMapHandler<Element> where Element: Mappable {
     }
 }
 
+class ListMapHandler<Element> where Element: Mappable {
+    func map(_ JSONString: String) throws -> [Element] {
+        guard let item = Mapper<Element>().mapArray(JSONfile: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+        }
+        return item
+    }
+}
+
 /// Rx观察者基类：使用它的子类
 class Observer<Element>: ObserverType {
     typealias EventHandler = (Result<Element, HttpError>) -> Void
@@ -65,6 +74,17 @@ class ObjectObserver<Element>: Observer<Element> where Element: Mappable {
     }
 }
 
+class StringObserver: Observer<String> {
+    override func mapObject() -> Observer<String>.MapObjectHandler {
+        return { value -> String in
+            return value
+        }
+    }
+}
+
+class VoidObserver: Observer<Void> {
+}
+
 /// login观察者
 ///
 /// 多个接口返回模型的聚合模型
@@ -84,6 +104,87 @@ class LoginObserver: Observer<Login> {
     func mapLogin() -> (User, Score) -> Login {
         return { (user, score) in
             return Login(user: user, score: score)
+        }
+    }
+}
+
+protocol AppObserverType: ObserverType {
+    func mapObject() -> (String) throws -> Element
+}
+//extension ObserverType {
+//    func mapObject() -> (String) throws -> Element {
+//        fatalError()
+//    }
+//}
+
+class NewObjectObserver<Element>: AppObserverType where Element: Mappable {
+    typealias EventHandler = (Result<Element, HttpError>) -> Void
+
+    let disposeBag: DisposeBag
+    let observer: EventHandler
+
+    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: HttpResultHandler {
+        self.disposeBag = disposeBag
+        self.observer = { [weak observer] result in
+            observer?.resultHandler(result)
+        }
+    }
+
+    func on(_ event: Event<Element>) {
+        switch event {
+        case .next(let item):
+            observer(.success(item))
+        case .error(let error):
+            observer(.failure(ApiException.handleException(error)))
+        case .completed: break
+        }
+    }
+
+    func mapObject() -> (String) throws -> Element {
+        return { value in
+            return try ObjectMapHandler<Element>().map(value)
+        }
+    }
+}
+
+/// 列表数据观察者
+///
+/// `ListElement`没有限定类型，如果有自定义类型和继承此类，自行实现mapObject()
+/// `Mappable`类型的数据模型请使用`ObjectListObserver`
+class ListObserver<ListElement>: AppObserverType {
+    typealias Element = [ListElement]
+
+    typealias EventHandler = (Result<Element, HttpError>) -> Void
+
+    let disposeBag: DisposeBag
+    let observer: EventHandler
+
+    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: HttpResultHandler {
+        self.disposeBag = disposeBag
+        self.observer = { [weak observer] result in
+            observer?.resultHandler(result)
+        }
+    }
+
+    func on(_ event: Event<[ListElement]>) {
+        switch event {
+        case .next(let item):
+            observer(.success(item))
+        case .error(let error):
+            observer(.failure(ApiException.handleException(error)))
+        case .completed: break
+        }
+    }
+
+    func mapObject() -> (String) throws -> [ListElement] {
+        fatalError()
+    }
+}
+
+class ObjectListObserver<ListElement>: ListObserver<ListElement> where ListElement: Mappable {
+    override func mapObject() -> (String) throws -> [ListElement] {
+        return { value in
+            return try ListMapHandler<ListElement>().map(value)
         }
     }
 }

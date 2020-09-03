@@ -39,6 +39,9 @@ struct AllCollegeParameter {
 
 enum CollegeApi {
     case all(AllCollegeParameter)
+
+    case insert(id: Int, name: String)
+    case delete(id: Int, name: String)
 }
 
 extension CollegeApi: TargetType, MoyaAddable {
@@ -46,6 +49,10 @@ extension CollegeApi: TargetType, MoyaAddable {
         switch self {
         case .all:
             return .firstCache(CacheConfig(path: path, parameters: task.parameters, module: .college, expiry: .time(.day(1))))
+        case .insert:
+            return .none(CacheConfig(path: path, parameters: task.parameters))
+        case .delete:
+            return .none(CacheConfig(path: path, parameters: task.parameters))
         }
     }
 
@@ -53,6 +60,28 @@ extension CollegeApi: TargetType, MoyaAddable {
         switch self {
         case let .all(parameter):
             return .requestParameters(parameters: parameter.parameters, encoding: JSONEncoding.default)
+        case let .insert(id, name):
+            let parameters: [String: Any] = [
+                "userNumId": 14077053,
+                "colleges": [
+                    [
+                        "collegeId": id,
+                        "collegeName": name
+                    ]
+                ]
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case let .delete(id, name):
+            let parameters: [String: Any] = [
+                "userNumId": 14077053,
+                "colleges": [
+                    [
+                        "collegeId": id,
+                        "collegeName": name
+                    ]
+                ]
+            ]
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
 
@@ -60,6 +89,10 @@ extension CollegeApi: TargetType, MoyaAddable {
         switch self {
         case .all:
             return "Colleges/Query"
+        case .insert:
+            return "Users/Collection/College/Insert"
+        case .delete:
+            return "Users/Collection/College/Remove"
         }
     }
 
@@ -68,7 +101,12 @@ extension CollegeApi: TargetType, MoyaAddable {
     }
 
     var baseURL: URL {
-        return URL(string: "http://106.75.118.194:5001")!
+        switch self {
+        case .insert, .delete:
+            return URL(string: "http://106.75.118.194:5101")!
+        default:
+            return URL(string: "http://106.75.118.194:5001")!
+        }
     }
 }
 

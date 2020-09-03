@@ -55,12 +55,12 @@ extension DiskStorage {
         try? fileManager.setAttributes([.modificationDate: newExpiry.date], ofItemAtPath: filePath)
         do {
             try fileManager.setAttributes([.modificationDate: newExpiry.date], ofItemAtPath: filePath)
-            print("设置缓存时间完成", newExpiry, newExpiry.date)
+//            print("设置缓存时间完成", newExpiry, newExpiry.date)
         } catch let error {
             print(error.localizedDescription)
             isFinish = false
         }
-        print("返回成功标识")
+//        print("返回成功标识")
         return isFinish
     }
 

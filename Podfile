@@ -17,6 +17,7 @@ target 'HttpServer' do
   pod 'MBProgressHUD'
   pod 'SnapKit'
   pod 'SDWebImage'
+  pod 'SwiftyUserDefaults'
 
   pod 'LookinServer', :configurations => ['Debug']
 

@@ -198,28 +198,68 @@ import RxSwift
 //let result: [[String: Any]] = []
 //print(JSONSerialization.isValidJSONObject(result))
 
-let parameters: [String: Any] = [
-    "1": 123,
-    "2": 543,
-    "3": [
-        "123": 9483,
-        "234": 5845,
-        "345": "fewi"
-    ],
-    "4": "fekwjfe"
-]
+import ObjectMapper
 
-func toString(_ parameter: [String: Any]) -> String {
-    let arr = parameter.map { (item) -> String in
-        if let dict = item.value as? [String: Any] {
-            return toString(dict)
-        } else {
-            return "\(item.key)=\(item.value)"
-        }
-    }
-    let value = arr.sorted().joined(separator: ",")
-    return value
+extension Mappable {
+    
 }
 
-let value = toString(parameters)
-print(value)
+struct Model: Mappable, Equatable {
+    var a: Int = 0
+    var b: Int = 0
+    var c: C?
+    var d: Int = 0
+
+    init?(map: Map) {}
+
+    mutating func mapping(map: Map) {
+        a   <- map["a"]
+        b   <- map["b"]
+        c   <- map["c"]
+        d   <- map["d"]
+    }
+
+    struct C: Mappable, Equatable {
+        var aaa: Int = 0
+        var bbb: Int = 0
+        var ccc: String = ""
+
+        init?(map: Map) {}
+
+        mutating func mapping(map: Map) {
+            aaa <- map["aaa"]
+            bbb <- map["bbb"]
+            ccc <- map["ccc"]
+        }
+    }
+}
+
+let parameters: [String: Any] = [
+    "a": 123,
+    "b": 543,
+    "c": [
+        "aaa": 9483,
+        "bbb": 5845,
+        "ccc": "fewi"
+    ],
+    "d": "fekwjfe"
+]
+
+let data = try? JSONSerialization.data(withJSONObject: parameters, options: [.prettyPrinted])
+let stringValue = String(data: data!, encoding: .utf8) ?? "nil"
+print("jsonString", stringValue)
+
+let item1 = Mapper<Model>().map(JSON: parameters)
+print(item1)
+var item2 = Mapper<Model>().map(JSON: parameters)
+print(item2)
+item2?.a = 1
+
+print("\n")
+print(item1 == item2)
+print("\n")
+
+let item1String = item1?.toJSONString()
+print(item1String)
+let item2String = item2?.toJSONString()
+print(item2String)

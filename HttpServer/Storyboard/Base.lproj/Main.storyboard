@@ -312,6 +312,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="F3r-jf-JbC" id="pXx-bT-VYx"/>
+                                    <outlet property="delegate" destination="F3r-jf-JbC" id="b9M-yy-oWH"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -332,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gRC-zN-XJz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2134.7826086956525" y="1379.4642857142856"/>
+            <point key="canvasLocation" x="1726" y="1396"/>
         </scene>
         <!--Collection List View Controller-->
         <scene sceneID="Erz-Az-sef">

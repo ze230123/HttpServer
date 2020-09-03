@@ -39,7 +39,6 @@ struct User: Mappable {
     }
 }
 
-
 struct Login {
     var user: User
     var score: Score
