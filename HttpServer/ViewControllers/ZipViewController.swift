@@ -9,12 +9,8 @@
 import UIKit
 import RxSwift
 
-class ZipViewController: UIViewController {
-    let disposeBag = DisposeBag()
-
-    lazy var observer = LoginObserver(disposeBag: disposeBag) { [unowned self] (result) in
-        self.resultHandler(result)
-    }
+class ZipViewController: BaseViewController {
+    lazy var observer = LoginObserver(disposeBag: self.disposeBag, observer: self)
 
     deinit {
         print("ZipViewController_deinit")
@@ -22,9 +18,12 @@ class ZipViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.zipLogin(id: 14077053, proId: 842, callback: observer)
-        print("\(view.hashValue)")
+        Server.zipLogin(id: 14077053, proId: 842, observer: observer)
     }
+}
+
+extension ZipViewController: HttpResultHandler {
+    typealias Element = Login
 
     func resultHandler(_ result: Result<Login, HttpError>) {
         switch result {

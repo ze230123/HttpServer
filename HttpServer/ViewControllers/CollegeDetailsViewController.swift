@@ -58,22 +58,22 @@ class CollegeDetailsViewController: BaseViewController {
 
     @IBAction func likeAction(_ sender: UIButton) {
         view.showLoading(.normalHud)
-        Server.likeCollege(
-            id: id,
-            name: name,
-            isLike: sender.isSelected,
-            observer: StringObserver(
-                disposeBag: disposeBag,
-                handler: { (result) in
-                    self.view.stopLoading()
-                    switch result {
-                    case .success:
-                        sender.isSelected = !sender.isSelected
-                    case .failure(let error):
-                        print(error, error.localizedDescription)
-                        MBHUD.showMessage(error.localizedDescription, to: self.view)
-                }
-            })
-        )
+//        Server.likeCollege(
+//            id: id,
+//            name: name,
+//            isLike: sender.isSelected,
+//            observer: StringObserver(
+//                disposeBag: disposeBag,
+//                handler: { (result) in
+//                    self.view.stopLoading()
+//                    switch result {
+//                    case .success:
+//                        sender.isSelected = !sender.isSelected
+//                    case .failure(let error):
+//                        print(error, error.localizedDescription)
+//                        MBHUD.showMessage(error.localizedDescription, to: self.view)
+//                }
+//            })
+//        )
     }
 }

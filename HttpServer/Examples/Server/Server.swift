@@ -19,7 +19,6 @@ class Server {
     static func getUserInfo(id: Int, observer: NewObjectObserver<User>) {
         server
             .request(api: UserApi.info(id: id), map: observer.map)
-//            .request(api: UserApi.info(id: id), mapHandler: callback.mapObject())
             .subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
@@ -32,7 +31,6 @@ class Server {
     static func getScore(numId: Int, proId: Int, observer: NewObjectObserver<Score>) {
         server
             .request(api: ScoreApi.getByUser(numId: numId, proId: proId), map: observer.map)
-//            .request(api: ScoreApi.getByUser(numId: numId, proId: proId), mapHandler: callback.mapObject())
             .subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
@@ -41,7 +39,18 @@ class Server {
     /// - Parameters:
     ///   - id: 用户ID
     ///   - callback: 回调对象
-    static func login(id: Int, callback: LoginObserver) {
+    static func login(id: Int, observer: LoginObserver) {
+        server
+            .request(api: UserApi.info(id: id), map: observer.userMap)
+            .flatMap { (user) -> Observable<Login> in
+                return server
+                    .request(api: ScoreApi.getByUser(numId: user.numId, proId: user.provinceId), map: observer.scoreMap)
+                    .map { (score) -> Login in
+                        return Login(user: user, score: score)
+                    }
+            }
+            .subscribe(observer)
+            .disposed(by: observer.disposeBag)
 //        server
 //            .request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
 //            .flatMap { (user) -> Observable<Login> in
@@ -58,8 +67,13 @@ class Server {
     ///   - id: 用户ID
     ///   - proId: 省份ID
     ///   - callback: 回调对象
-    static func zipLogin(id: Int, proId: Int, callback: LoginObserver) {
-        
+    static func zipLogin(id: Int, proId: Int, observer: LoginObserver) {
+        let userRequest = server.request(api: UserApi.info(id: id), map: observer.userMap)
+        let scoreRequest = server.request(api: ScoreApi.getByUser(numId: id, proId: proId), map: observer.scoreMap)
+        Observable<Login>
+            .zip(userRequest, scoreRequest, resultSelector: observer.mapLogin())
+            .subscribe(observer)
+            .disposed(by: observer.disposeBag)
 //        let userRequest = server.request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
 //        let scoreRequest = server.request(api: ScoreApi.getByUser(numId: id, proId: proId), mapHandler: callback.mapScore())
 //        Observable<Login>
@@ -90,7 +104,7 @@ class Server {
     ///   - id: 院校ID
     ///   - isLike: true：已关注，false: 未关注
     ///   - observer: 回调对象
-    static func likeCollege(id: Int, name: String, isLike: Bool, observer: StringObserver) {
+//    static func likeCollege(id: Int, name: String, isLike: Bool, observer: StringObserver) {
 //        var api: CollegeApi
 //
 //        if isLike {
@@ -103,7 +117,7 @@ class Server {
 //            .request(api: api, mapHandler: observer.mapObject())
 //            .subscribe(observer)
 //            .disposed(by: observer.disposeBag)
-    }
+//    }
 }
 
 import ObjectMapper

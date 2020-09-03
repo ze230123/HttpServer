@@ -9,10 +9,22 @@
 import UIKit
 import RxSwift
 
-class FaltMapViewController: UIViewController {
-    let disposeBag = DisposeBag()
+/// login观察者
+///
+/// 多个接口返回模型的聚合模型
+class LoginObserver: Observer<Login> {
+    let userMap = ObjectMap<User>()
+    let scoreMap = ObjectMap<Score>()
 
-//    lazy var observer = LoginObserver({ [unowned self] in self.resultHandler($0) })
+    func mapLogin() -> (User, Score) -> Login {
+        return { (user, score) in
+            return Login(user: user, score: score)
+        }
+    }
+}
+
+class FaltMapViewController: BaseViewController {
+    lazy var observer = LoginObserver(disposeBag: self.disposeBag, observer: self)
 
     deinit {
         print("FaltMapViewController_deinit")
@@ -20,10 +32,15 @@ class FaltMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Server.login(id: 14077053, observer: observer)
 //        Server.getScore(numId: 14077053, proId: 842, disposeBag: disposeBag, callback: observer)
 //        Server.login(id: 14077053, disposeBag: disposeBag, callback: observer)
         print("\(view.hashValue)")
     }
+}
+
+extension FaltMapViewController: HttpResultHandler {
+    typealias Element = Login
 
     func resultHandler(_ result: Result<Login, HttpError>) {
         switch result {
@@ -34,4 +51,3 @@ class FaltMapViewController: UIViewController {
         }
     }
 }
-
