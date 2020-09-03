@@ -13,13 +13,21 @@ import Moya
 
 /// Rx封装的缓存工具类
 class RxCache {
-    func load(_ key: String) -> Observable<String?> {
-        return Observable.just(CacheCore.shared.cache(for: key))
+    func load<Map, Element>(_ key: String, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+        guard let cache = CacheCore.shared.cache(for: key) else {
+            return Observable.error(HttpError.noCache)
+        }
+        do {
+            let item = try map.mapObject(cache)
+            return Observable.just(item)
+        } catch {
+            return Observable.error(error)
+        }
     }
 
-    func save(_ value: String, key: String, expiry: Expiry) -> Observable<String> {
-        CacheCore.shared.setCache(value, key: key, expiry: expiry)
-        return Observable.just(value)
+    func save<Map, Element>(_ value: Element, key: String, expiry: Expiry, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+        CacheCore.shared.setCache(map.mapCache(value), key: key, expiry: expiry)
+        return .just(value)
     }
 }
 
@@ -40,28 +48,22 @@ class BaseStrategy {
     ///   - rxCache: 缓存工具类
     ///   - needEmpty: Bool类型，true：没找到缓存时返回Empty，false：正常返回
     /// - Returns: Observable<String>类型的可观察对象
-    func loadCache(_ rxCache: RxCache, needEmpty: Bool) -> Observable<String> {
-        var observable = rxCache.load(config.key).map { (value) -> String in
-            guard let new = value else {
-                throw HttpError.noCache
-            }
-            return new
-        }
+    func loadCache<Map, Element>(_ rxCache: RxCache, map: Map, needEmpty: Bool) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+        var observable = rxCache.load(config.key, map: map)
         if needEmpty {
-            observable = observable.catchError({ (_) -> Observable<String> in
+            observable = observable.catchError({ (_) -> Observable<Element> in
                 return Observable.empty()
             })
         }
         return observable
     }
 
-    func loadRemote(_ rxCache: RxCache, observable: Observable<Response>) -> Observable<String> {
+    func loadRemote<Map, Element>(_ rxCache: RxCache, map: Map, observable: Observable<Element>) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
         let key = config.key
         let expiry = config.expiry
 
-        let obser = observable.flatMap { (response) -> Observable<String> in
-            let result = try response.mapResultValue()
-            return rxCache.save(result, key: key, expiry: expiry)
+        let obser = observable.flatMap { (value) -> Observable<Element> in
+            return rxCache.save(value, key: key, expiry: expiry, map: map)
         }
         return obser
     }
@@ -72,19 +74,17 @@ class BaseStrategy {
     ///   - handler: 接口请求频率处理工具
     ///   - observable: 正常的请求
     /// - Returns: 返回经过缓存策略工具处理过的请求
-    func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
+    func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<Element>) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
         fatalError()
     }
 }
 
 class NoCacheStrategy: BaseStrategy {
-    override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
+    override func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<Element>) -> Observable<Element> where Map : MapHandler, Element == Map.Element {
         if handler.invalid(api: config.api, parameter: config.parameters) {
             return Observable.error(HttpError.frequently)
         } else {
-            return observable.map { (response) -> String in
-                return try response.mapResultValue()
-            }
+            return observable
         }
     }
 }
@@ -94,13 +94,13 @@ class NoCacheStrategy: BaseStrategy {
 /// 先读取缓存，不管有没有缓存都会请求网络
 /// 等网络返回后，发现数据一样就不会返回，不同则会再次返回网络的数据
 class CacheAndRemoteDistinctStrategy: BaseStrategy {
-    override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
+    override func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<Element>) -> Observable<Element> where Map : MapHandler, Element == Map.Element {
         if handler.invalid(api: config.api, parameter: config.parameters) {
-            return loadCache(rxCache, needEmpty: false)
+            return loadCache(rxCache, map: map, needEmpty: false)
         } else {
-            let cache = loadCache(rxCache, needEmpty: true)
-            let remote = loadRemote(rxCache, observable: observable)
-            return Observable.concat(cache, remote).filter( { !$0.isEmpty } ).distinctUntilChanged(==)
+            let cache = loadCache(rxCache, map: map, needEmpty: true)
+            let remote = loadRemote(rxCache, map: map, observable: observable)
+            return Observable.concat(cache, remote).distinctUntilChanged(map.mapString, comparer: ==)
         }
     }
 }
@@ -110,12 +110,12 @@ class CacheAndRemoteDistinctStrategy: BaseStrategy {
 /// 先读取缓存，缓存不存在，在请求网络
 /// 如果次数超出规定限制，直接读取缓存
 class FirstCacheStrategy: BaseStrategy {
-    override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
+    override func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<Element>) -> Observable<Element> where Map : MapHandler, Element == Map.Element {
         if handler.invalid(api: config.api, parameter: config.parameters) {
-            return loadCache(rxCache, needEmpty: false)
+            return loadCache(rxCache, map: map, needEmpty: false)
         } else {
-            let cache = loadCache(rxCache, needEmpty: true)
-            let remote = loadRemote(rxCache, observable: observable)
+            let cache = loadCache(rxCache, map: map, needEmpty: true)
+            let remote = loadRemote(rxCache, map: map, observable: observable)
             return cache.ifEmpty(switchTo: remote)
         }
     }
@@ -126,32 +126,13 @@ class FirstCacheStrategy: BaseStrategy {
 /// 先请求网络，网络请求失败，再加载缓存
 /// 如果次数超出规定限制 直接读取缓存
 class FirstRequestStrategy: BaseStrategy {
-    override func execute(_ rxCache: RxCache, handler: RequestFrequencyHandler, observable: Observable<Response>) -> Observable<String> {
+    override func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<Element>) -> Observable<Element> where Map : MapHandler, Element == Map.Element {
         if handler.invalid(api: config.api, parameter: config.parameters) {
-            return loadCache(rxCache, needEmpty: false)
+            return loadCache(rxCache, map: map, needEmpty: false)
         } else {
-            let cache = loadCache(rxCache, needEmpty: true)
-            let remote = loadRemote(rxCache, observable: observable)
+            let cache = loadCache(rxCache, map: map, needEmpty: true)
+            let remote = loadRemote(rxCache, map: map, observable: observable)
             return remote.catchError( { _ in cache } )
         }
-    }
-}
-
-extension Response {
-    /// 取出返回数据中的`result`，在将其转换为string返回
-    /// `result`如果是String，直接返回`result`
-    func mapResultValue() throws -> String {
-        guard let json = try mapJSON() as? [String: Any],
-         let result = json["result"] else {
-            throw MoyaError.stringMapping(self)
-        }
-        guard JSONSerialization.isValidJSONObject(result) else {
-            if let data = result as? String {
-                return data
-            }
-            throw MoyaError.jsonMapping(self)
-        }
-        let data = try JSONSerialization.data(withJSONObject: result, options: [])
-        return String(data: data, encoding: .utf8) ?? ""
     }
 }

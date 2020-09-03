@@ -13,10 +13,11 @@ typealias CollegeList = [CollegeListModel]
 
 /// 全部院校回调
 class AllCollegeObserver: ListObserver<CollegeListModel> {
-    override func mapObject() -> (String) throws -> [CollegeListModel] {
+    let map = ObjectMap<NewCollegeList>()
+
+    func mapList() -> (NewCollegeList) throws -> [CollegeListModel] {
         return { value in
-            let item = try ObjectMapHandler<NewCollegeList>().map(value)
-            let list = item.items.map { CollegeListModel(item: $0) }
+            let list = value.items.map { CollegeListModel(item: $0) }
             return list
         }
     }

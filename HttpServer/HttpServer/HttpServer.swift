@@ -72,29 +72,31 @@ extension HttpServer {
         return self
     }
 
-    private func request(api: TargetType) -> Observable<Response> {
+    private func sendRequest<Map, Element>(api: TargetType, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
         return provider
             .rx
             .request(MultiTarget(api))
             .asObservable()
             .filterSuccessfulStatusCodes()
+            .mapString()
+            .map(map.mapObject())
     }
 
-    func request<Element>(api: TargetType & MoyaAddable, mapHandler: @escaping Observer<Element>.MapObjectHandler) -> Observable<Element> {
-        return toObservable(request(api: api), strategy: api.policy.strategy, mapHandler: mapHandler)
+    func request<Map, Element>(api: TargetType & MoyaAddable, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+        return toObservable(sendRequest(api: api, map: map), strategy: api.policy.strategy, map: map)
     }
 
-    func toObservable<Element>(_ observable: Observable<Response>, strategy: BaseStrategy, mapHandler: @escaping Observer<Element>.MapObjectHandler) -> Observable<Element> {
-        return strategy.execute(rxCache, handler: handler, observable: observable).map(mapHandler)
+    func toObservable<Map, Element>(_ observable: Observable<Element>, strategy: BaseStrategy, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+        return strategy.execute(rxCache, handler: handler, map: map, observable: observable)
     }
 
-    func newRequest<Oberver, Element>(api: TargetType & MoyaAddable, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
-        return newToObservable(request(api: api), strategy: api.policy.strategy, oberver: oberver)
-    }
-
-    func newToObservable<Oberver, Element>(_ observable: Observable<Response>, strategy: BaseStrategy, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
-        return strategy.execute(rxCache, handler: handler, observable: observable).map(oberver.mapObject())
-    }
+//    func newRequest<Oberver, Element>(api: TargetType & MoyaAddable, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
+//        return newToObservable(request(api: api), strategy: api.policy.strategy, oberver: oberver)
+//    }
+//
+//    func newToObservable<Oberver, Element>(_ observable: Observable<Response>, strategy: BaseStrategy, oberver: Oberver) -> Observable<Element> where Oberver: AppObserverType, Oberver.Element == Element {
+//        return strategy.execute(rxCache, handler: handler, observable: observable).map(oberver.mapObject())
+//    }
 }
 
 class ApiException {

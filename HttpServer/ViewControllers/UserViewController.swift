@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 
-
 class UserViewController: BaseViewController {
     lazy var newObserver = NewObjectObserver<User>(disposeBag: self.disposeBag, observer: self)
 
@@ -21,13 +20,12 @@ class UserViewController: BaseViewController {
         super.viewDidLoad()
 
         view.updateEmptyTitle("哈哈哈哈哈")
-        print("\(view.hashValue)")
         request()
     }
 
     override func request() {
         let id = 14077053
-        Server.getUserInfo(id: id, callback: newObserver)
+        Server.getUserInfo(id: id, observer: newObserver)
     }
 }
 

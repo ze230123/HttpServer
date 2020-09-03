@@ -109,7 +109,7 @@ class LoginObserver: Observer<Login> {
 }
 
 protocol AppObserverType: ObserverType {
-    func mapObject() -> (String) throws -> Element
+//    func mapObject() -> (String) throws -> Element
 }
 //extension ObserverType {
 //    func mapObject() -> (String) throws -> Element {
@@ -119,6 +119,8 @@ protocol AppObserverType: ObserverType {
 
 class NewObjectObserver<Element>: AppObserverType where Element: Mappable {
     typealias EventHandler = (Result<Element, HttpError>) -> Void
+
+    let map = ObjectMap<Element>()
 
     let disposeBag: DisposeBag
     let observer: EventHandler
@@ -175,16 +177,14 @@ class ListObserver<ListElement>: AppObserverType {
         case .completed: break
         }
     }
-
-    func mapObject() -> (String) throws -> [ListElement] {
-        fatalError()
-    }
 }
 
 class ObjectListObserver<ListElement>: ListObserver<ListElement> where ListElement: Mappable {
-    override func mapObject() -> (String) throws -> [ListElement] {
-        return { value in
-            return try ListMapHandler<ListElement>().map(value)
-        }
-    }
+    let map = ListMap<ListElement>()
+
+//    override func mapObject() -> (String) throws -> [ListElement] {
+//        return { value in
+//            return try ListMapHandler<ListElement>().map(value)
+//        }
+//    }
 }

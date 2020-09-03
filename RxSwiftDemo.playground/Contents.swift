@@ -259,7 +259,11 @@ print("\n")
 print(item1 == item2)
 print("\n")
 
-let item1String = item1?.toJSONString()
-print(item1String)
-let item2String = item2?.toJSONString()
-print(item2String)
+let item1String = item1?.toJSONString() ?? ""
+let item1Data = item1String.data(using: .utf8)
+print(item1Data, item1String)
+let item2String = item2?.toJSONString() ?? ""
+let item2Data = item2String.data(using: .utf8)
+print(item2Data, item2String)
+
+print(item1Data == item2Data)
