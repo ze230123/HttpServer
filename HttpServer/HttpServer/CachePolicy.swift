@@ -8,8 +8,8 @@
 
 import Moya
 /// 将参数字典转换为字符串
-private extension Dictionary where Key == String, Value == Any {
-    func toString() -> String {
+extension Dictionary where Key == String, Value == Any {
+    func toSortString() -> String {
         // iOS 11 以上的系统使用JSONSerialization转换为json字符串
         if #available(iOS 11.0, *) {
             guard let data = try? JSONSerialization.data(withJSONObject: self, options: [.sortedKeys]),
@@ -66,7 +66,7 @@ struct CacheConfig {
 
     init(path: String, parameters: Parameters, module: Module = .other, expiry: Expiry = .never) {
         self.api = path
-        self.parameters = parameters.toString()
+        self.parameters = parameters.toSortString()
         self.module = module
         self.expiry = expiry
     }

@@ -118,7 +118,7 @@ extension RequestFrequencyDatabase {
             try item.save(db)
         }
     }
-    
+
     /// 保存请求记录
     /// - Parameters:
     ///   - api: 接口path

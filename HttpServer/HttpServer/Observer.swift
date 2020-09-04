@@ -29,62 +29,6 @@ class ListMapHandler<Element> where Element: Mappable {
     }
 }
 
-///// Rx观察者基类：使用它的子类
-//class Observer<Element>: ObserverType {
-//    typealias EventHandler = (Result<Element, HttpError>) -> Void
-//    typealias MapObjectHandler = (String) throws -> Element
-//
-//    private let handler: EventHandler
-//    let disposeBag: DisposeBag
-//
-//    deinit {
-//        print("\(self)_deinit")
-//    }
-//
-//    init(disposeBag: DisposeBag, handler: @escaping EventHandler) {
-//        self.disposeBag = disposeBag
-//        self.handler = handler
-//    }
-//
-//    func on(_ event: Event<Element>) {
-//        switch event {
-//        case .next(let item):
-//            handler(.success(item))
-//        case .error(let error):
-//            handler(.failure(catchError(error)))
-//        case .completed: break
-//        }
-//    }
-//
-//    func mapObject() -> MapObjectHandler {
-//        fatalError()
-//    }
-//
-//    private func catchError(_ error: Error) -> HttpError {
-//        return ApiException.handleException(error)
-//    }
-//}
-//
-///// 数据模型观察者
-//class ObjectObserver<Element>: Observer<Element> where Element: Mappable {
-//    override func mapObject() -> Observer<Element>.MapObjectHandler {
-//        return { (value) -> Element in
-//            return try ObjectMapHandler<Element>().map(value)
-//        }
-//    }
-//}
-//
-//class StringObserver: Observer<String> {
-//    override func mapObject() -> Observer<String>.MapObjectHandler {
-//        return { value -> String in
-//            return value
-//        }
-//    }
-//}
-
-//class VoidObserver: Observer<Void> {
-//}
-
 /// 任意对象观察者
 class Observer<Element>: ObserverType {
     typealias EventHandler = (Result<Element, HttpError>) -> Void
@@ -150,10 +94,14 @@ class ListObserver<ListElement>: ObserverType {
     }
 }
 
+/// 对象列表观察者
+///
+/// `ListElement`遵守`Mappable`协议
 class ObjectListObserver<ListElement>: ListObserver<ListElement> where ListElement: Mappable {
     let map = ListMap<ListElement>()
 }
 
+/// 返回String或`Result`没有返回的观察者
 class VoidObserver: Observer<String> {
     let map = StringMap()
 }
