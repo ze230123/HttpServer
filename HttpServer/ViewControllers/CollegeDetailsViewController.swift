@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/// 关注院校缓存
 class College {
     private var likeList: [Int] = [] {
         didSet {
@@ -29,6 +29,14 @@ class College {
 
     func isLike(_ id: Int) -> Bool {
         return likeList.contains(id)
+    }
+
+    func like(_ id: Int, isLike: Bool) {
+        if isLike {
+            add(id)
+        } else {
+            remove(id)
+        }
     }
 }
 
@@ -53,27 +61,31 @@ class CollegeDetailsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = name
+        // 判断是否关注
         button.isSelected = college.isLike(id)
     }
 
     @IBAction func likeAction(_ sender: UIButton) {
         view.showLoading(.normalHud)
-//        Server.likeCollege(
-//            id: id,
-//            name: name,
-//            isLike: sender.isSelected,
-//            observer: StringObserver(
-//                disposeBag: disposeBag,
-//                handler: { (result) in
-//                    self.view.stopLoading()
-//                    switch result {
-//                    case .success:
-//                        sender.isSelected = !sender.isSelected
-//                    case .failure(let error):
-//                        print(error, error.localizedDescription)
-//                        MBHUD.showMessage(error.localizedDescription, to: self.view)
-//                }
-//            })
-//        )
+
+        Server.likeCollege(
+        id: id,
+        name: name,
+        isLike: sender.isSelected,
+        disposeBag: disposeBag) { [unowned view, college, id] (result) in
+            guard let view = view else { return }
+            view.stopLoading()
+            switch result {
+            case .success:
+                // 改变按钮状态
+                sender.isSelected = !sender.isSelected
+                // 将院校ID添加到本地缓存，或从缓存中删除ID
+                // 根据按钮isSelected状态判断是添加还是删除
+                // true: 添加，false：删除
+                college.like(id, isLike: sender.isSelected)
+            case .failure(let error):
+                MBHUD.showMessage(error.localizedDescription, to: view)
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ class Server {
     /// - Parameters:
     ///   - id: 用户ID
     ///   - callback: 回调对象
-    static func getUserInfo(id: Int, observer: NewObjectObserver<User>) {
+    static func getUserInfo(id: Int, observer: ObjectObserver<User>) {
         server
             .request(api: UserApi.info(id: id), map: observer.map)
             .subscribe(observer)
@@ -28,7 +28,7 @@ class Server {
     ///   - numId: 用户ID
     ///   - proId: 省份ID
     ///   - callback: 回调对象
-    static func getScore(numId: Int, proId: Int, observer: NewObjectObserver<Score>) {
+    static func getScore(numId: Int, proId: Int, observer: ObjectObserver<Score>) {
         server
             .request(api: ScoreApi.getByUser(numId: numId, proId: proId), map: observer.map)
             .subscribe(observer)
@@ -104,20 +104,30 @@ class Server {
     ///   - id: 院校ID
     ///   - isLike: true：已关注，false: 未关注
     ///   - observer: 回调对象
-//    static func likeCollege(id: Int, name: String, isLike: Bool, observer: StringObserver) {
-//        var api: CollegeApi
-//
-//        if isLike {
-//            api = .delete(id: id, name: name)
-//        } else {
-//            api = .insert(id: id, name: name)
-//        }
-//
-//        server
-//            .request(api: api, mapHandler: observer.mapObject())
-//            .subscribe(observer)
-//            .disposed(by: observer.disposeBag)
-//    }
+    static func likeCollege(
+        id: Int,
+        name: String,
+        isLike: Bool,
+        disposeBag: DisposeBag,
+        handler: @escaping VoidObserver.EventHandler)
+    {
+        let observer = VoidObserver(disposeBag: disposeBag) { (result) in
+            handler(result)
+        }
+
+        var api: CollegeApi
+
+        if isLike {
+            api = .delete(id: id, name: name)
+        } else {
+            api = .insert(id: id, name: name)
+        }
+
+        server
+            .request(api: api, map: observer.map)
+            .subscribe(observer)
+            .disposed(by: observer.disposeBag)
+    }
 }
 
 import ObjectMapper
@@ -141,6 +151,22 @@ struct ObjectResult<Element>: Mappable where Element: Mappable {
 struct ListResult<Element>: Mappable where Element: Mappable {
     var message: String = ""
     var result: [Element] = []
+    var code: String = ""
+    var isSuccess: Bool = false
+
+    init?(map: Map) {}
+
+    mutating func mapping(map: Map) {
+        message     <- map["message"]
+        result      <- map["result"]
+        code        <- map["code"]
+        isSuccess   <- map["isSuccess"]
+    }
+}
+
+struct StringResult: Mappable {
+    var message: String = ""
+    var result: String = ""
     var code: String = ""
     var isSuccess: Bool = false
 
@@ -222,6 +248,34 @@ struct ListMap<ListElement>: MapHandler where ListElement: Mappable {
 
     func mapCache(_ value: Element) -> String {
         return value.toJSONString(prettyPrint: true) ?? ""
+    }
+}
+
+struct StringMap: MapHandler {
+    typealias Element = String
+
+    func mapObject() -> (String) throws -> String {
+        return { value in
+            guard let item = Mapper<StringResult>().map(JSONString: value) else {
+                throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
+            }
+            guard item.isSuccess else {
+                throw HttpError.message(item.message)
+            }
+            return item.result
+        }
+    }
+
+    func mapObject(_ value: String) throws -> String {
+        return value
+    }
+
+    func mapString(_ value: String) -> String {
+        return value
+    }
+
+    func mapCache(_ value: String) -> String {
+        return value
     }
 }
 

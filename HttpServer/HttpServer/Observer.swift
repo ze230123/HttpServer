@@ -85,7 +85,7 @@ class ListMapHandler<Element> where Element: Mappable {
 //class VoidObserver: Observer<Void> {
 //}
 
-
+/// 任意对象观察者
 class Observer<Element>: ObserverType {
     typealias EventHandler = (Result<Element, HttpError>) -> Void
 
@@ -99,39 +99,9 @@ class Observer<Element>: ObserverType {
         }
     }
 
-    func on(_ event: Event<Element>) {
-        switch event {
-        case .next(let item):
-            observer(.success(item))
-        case .error(let error):
-            observer(.failure(ApiException.handleException(error)))
-        case .completed: break
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-class NewObjectObserver<Element>: ObserverType where Element: Mappable {
-    typealias EventHandler = (Result<Element, HttpError>) -> Void
-
-    let map = ObjectMap<Element>()
-
-    let disposeBag: DisposeBag
-    let observer: EventHandler
-
-    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: HttpResultHandler {
+    init(disposeBag: DisposeBag, observer: @escaping EventHandler) {
         self.disposeBag = disposeBag
-        self.observer = { [weak observer] result in
-            observer?.resultHandler(result)
-        }
+        self.observer = observer
     }
 
     func on(_ event: Event<Element>) {
@@ -145,7 +115,12 @@ class NewObjectObserver<Element>: ObserverType where Element: Mappable {
     }
 }
 
-/// 列表数据观察者
+/// 遵守`Mappable`协议观察者
+class ObjectObserver<Element>: Observer<Element> where Element: Mappable {
+    let map = ObjectMap<Element>()
+}
+
+/// 任意对象列表观察者
 ///
 /// `ListElement`没有限定类型，如果有自定义类型和继承此类，自行实现mapObject()
 /// `Mappable`类型的数据模型请使用`ObjectListObserver`
@@ -177,4 +152,8 @@ class ListObserver<ListElement>: ObserverType {
 
 class ObjectListObserver<ListElement>: ListObserver<ListElement> where ListElement: Mappable {
     let map = ListMap<ListElement>()
+}
+
+class VoidObserver: Observer<String> {
+    let map = StringMap()
 }

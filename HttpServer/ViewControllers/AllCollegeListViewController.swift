@@ -8,8 +8,6 @@
 
 import UIKit
 import SnapKit
-/// 院校数组
-typealias CollegeList = [CollegeListModel]
 
 /// 全部院校回调
 class AllCollegeObserver: ListObserver<CollegeListModel> {
@@ -49,6 +47,9 @@ class AllCollegeListViewController: BaseCollectionViewController {
     lazy var observer = AllCollegeObserver(disposeBag: disposeBag, observer: self)
 
     lazy var parameter = AllCollegeParameter()
+
+    /// 院校数组
+    typealias CollegeList = [CollegeListModel]
 
     var dataSource: CollegeList = []
 
