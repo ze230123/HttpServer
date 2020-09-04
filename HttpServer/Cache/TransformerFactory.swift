@@ -12,9 +12,9 @@ import Foundation
 public class TransformerFactory {
     // FIXME: `encode` `decode`
     public static func forString() -> Transformer<String> {
-        let toData: (String?) -> Data? = { $0?.data(using: .utf8)?.encode }
+        let toData: (String?) -> Data? = { $0?.data(using: .utf8) }
 
-        let fromData: (Data?) -> String? = { $0?.decode.toString() }
+        let fromData: (Data?) -> String? = { $0?.toString() }
 
         return Transformer<String>(toData: toData, fromData: fromData)
     }

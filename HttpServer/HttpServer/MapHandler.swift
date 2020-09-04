@@ -8,54 +8,92 @@
 
 import ObjectMapper
 
+/// 数据模型转换处理
+fileprivate struct ObjectMapHandler<Element> where Element: Mappable {
+    func mapRoot(_ JSONString: String) throws -> (String?, Element) {
+        guard let item = Mapper<ObjectResult<Element>>().map(JSONString: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+        }
+        guard item.isSuccess else {
+            throw HttpError.message(item.message)
+        }
+        guard let result = item.result else {
+            throw HttpError.dataMapping
+        }
+        return (item.resultValue, result)
+    }
+
+    func mapResult(_ JSONString: String) throws -> Element {
+        guard let item = Mapper<Element>().map(JSONString: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+        }
+        return item
+    }
+}
+/// 数据模型转换处理
+fileprivate struct ListMapHandler<Element> where Element: Mappable {
+    func mapRoot(_ JSONString: String) throws -> (String?, [Element]) {
+        guard let item = Mapper<ListResult<Element>>().map(JSONString: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+        }
+        guard item.isSuccess else {
+            throw HttpError.message(item.message)
+        }
+        return (item.resultValue, item.result)
+    }
+
+    func mapList(_ JSONString: String) throws -> [Element] {
+        guard let item = Mapper<Element>().mapArray(JSONString: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+        }
+        return item
+    }
+}
+/// 数据模型转换处理
+fileprivate struct StringMapHandler {
+    func map(_ JSONString: String) throws -> String {
+        guard let item = Mapper<StringResult>().map(JSONString: JSONString) else {
+            throw HttpError.objectMapping(jsonString: JSONString, object: "\(String.self)")
+        }
+        guard item.isSuccess else {
+            throw HttpError.message(item.message)
+        }
+        return item.result
+    }
+}
+
 /// 数据转换处理协议
 protocol MapHandler {
     /// 数据类型
     associatedtype Element
     /// 服务器json转模型
-    func mapObject() -> (String) throws -> Element
+    func mapObject() -> (String) throws -> CacheResult<Element>
     /// 本地缓存json转模型
-    func mapObject(_ value: String) throws -> Element
+    func mapObject(_ value: String) throws -> CacheResult<Element>
     /// 模型转排序后的字符串
     ///
     /// 用于本地数据和网络数据比对
-    func mapString(_ value: Element) -> String
-    /// 数据模型转本地缓存json，本地缓存只缓存`result`字段数据
-    func mapCache(_ value: Element) -> String
+    func mapString(_ value: CacheResult<Element>) -> String?
 }
 
 /// 对象转换工具
 ///
 /// `result`为字典时使用此方法
 struct ObjectMap<Element>: MapHandler where Element: Mappable {
-    func mapObject() -> (String) throws -> Element {
+    func mapObject() -> (String) throws -> CacheResult<Element> {
         return { value in
-            guard let item = Mapper<ObjectResult<Element>>().map(JSONString: value) else {
-                throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
-            }
-            guard item.isSuccess else {
-                throw HttpError.message(item.message)
-            }
-            guard let result = item.result else {
-                throw HttpError.dataMapping
-            }
-            return result
+            let (jsonString, result) = try ObjectMapHandler<Element>().mapRoot(value)
+            return CacheResult<Element>(jsonString: jsonString, result: result)
         }
     }
 
-    func mapObject(_ value: String) throws -> Element {
-        guard let item = Mapper<Element>().map(JSONString: value) else {
-            throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
-        }
-        return item
+    func mapObject(_ value: String) throws -> CacheResult<Element> {
+        let result = try ObjectMapHandler<Element>().mapResult(value)
+        return CacheResult<Element>(jsonString: value, result: result)
     }
 
-    func mapString(_ value: Element) -> String {
-        return value.toSortString()
-    }
-
-    func mapCache(_ value: Element) -> String {
-        return value.toJSONString(prettyPrint: true) ?? ""
+    func mapString(_ value: CacheResult<Element>) -> String? {
+        return value.jsonString
     }
 }
 
@@ -65,31 +103,20 @@ struct ObjectMap<Element>: MapHandler where Element: Mappable {
 struct ListMap<ListElement>: MapHandler where ListElement: Mappable {
     typealias Element = [ListElement]
 
-    func mapObject() -> (String) throws -> Element {
+    func mapObject() -> (String) throws -> CacheResult<Element> {
         return { value in
-            guard let item = Mapper<ListResult<ListElement>>().map(JSONString: value) else {
-                throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
-            }
-            guard item.isSuccess else {
-                throw HttpError.message(item.message)
-            }
-            return item.result
+            let (jsonString, result) = try ListMapHandler<ListElement>().mapRoot(value)
+            return CacheResult<Element>(jsonString: jsonString, result: result)
         }
     }
 
-    func mapObject(_ value: String) throws -> Element {
-        guard let item = Mapper<ListElement>().mapArray(JSONfile: value) else {
-            throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
-        }
-        return item
+    func mapObject(_ value: String) throws -> CacheResult<Element> {
+        let result = try ListMapHandler<ListElement>().mapList(value)
+        return CacheResult<Element>(jsonString: value, result: result)
     }
 
-    func mapString(_ value: Element) -> String {
-        return value.toSortString()
-    }
-
-    func mapCache(_ value: Element) -> String {
-        return value.toJSONString(prettyPrint: true) ?? ""
+    func mapString(_ value: CacheResult<Element>) -> String? {
+        return value.jsonString
     }
 }
 
@@ -99,62 +126,18 @@ struct ListMap<ListElement>: MapHandler where ListElement: Mappable {
 struct StringMap: MapHandler {
     typealias Element = String
 
-    func mapObject() -> (String) throws -> String {
+    func mapObject() -> (String) throws -> CacheResult<String> {
         return { value in
-            guard let item = Mapper<StringResult>().map(JSONString: value) else {
-                throw HttpError.objectMapping(jsonString: value, object: "\(Element.self)")
-            }
-            guard item.isSuccess else {
-                throw HttpError.message(item.message)
-            }
-            return item.result
+            let result = try StringMapHandler().map(value)
+            return CacheResult(jsonString: result, result: result)
         }
     }
 
-    func mapObject(_ value: String) throws -> String {
-        return value
+    func mapObject(_ value: String) throws -> CacheResult<String> {
+        return CacheResult(jsonString: value, result: value)
     }
 
-    func mapString(_ value: String) -> String {
-        return value
-    }
-
-    func mapCache(_ value: String) -> String {
-        return value
-    }
-}
-
-fileprivate extension Mappable {
-    /// 将模型转为排序后的字符串
-    /// - Returns: 字符串
-    func toSortString() -> String {
-        return toJSON().toSortString()
-    }
-}
-
-fileprivate extension Array where Element: Mappable {
-    /// Returns the JSON Array
-    func toJSON() -> [[String: Any]] {
-        return Mapper().toJSONArray(self)
-    }
-
-    /// Returns the JSON String for the object
-    func toJSONString(prettyPrint: Bool = false) -> String? {
-        return Mapper().toJSONString(self, prettyPrint: prettyPrint)
-    }
-
-    /// 将模型转为排序后的字符串
-    /// - Returns: 字符串
-    func toSortString() -> String {
-        if #available(iOS 11.0, *) {
-            guard let data = try? JSONSerialization.data(withJSONObject: toJSON(), options: [.sortedKeys]),
-                let value = String(data: data, encoding: .utf8) else {
-                    return ""
-            }
-            return value
-        } else {
-            let value = toJSON().map { $0.toSortString() }.joined(separator: ",")
-            return value
-        }
+    func mapString(_ value: CacheResult<Element>) -> String? {
+        return value.jsonString
     }
 }

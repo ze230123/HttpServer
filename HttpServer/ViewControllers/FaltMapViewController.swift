@@ -39,7 +39,7 @@ class FaltMapViewController: BaseViewController {
     }
 }
 
-extension FaltMapViewController: HttpResultHandler {
+extension FaltMapViewController: ObserverHandler {
     typealias Element = Login
 
     func resultHandler(_ result: Result<Login, HttpError>) {

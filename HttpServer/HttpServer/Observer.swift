@@ -10,23 +10,12 @@ import Foundation
 import RxSwift
 import ObjectMapper
 
-/// 数据模型转换处理
-class ObjectMapHandler<Element> where Element: Mappable {
-    func map(_ JSONString: String) throws -> Element {
-        guard let item = Mapper<Element>().map(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
-        }
-        return item
-    }
-}
-
-class ListMapHandler<Element> where Element: Mappable {
-    func map(_ JSONString: String) throws -> [Element] {
-        guard let item = Mapper<Element>().mapArray(JSONfile: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
-        }
-        return item
-    }
+/// RxSwift 观察者处理协议
+///
+/// 将闭包转为方法
+protocol ObserverHandler where Self: BaseViewController {
+    associatedtype Element
+    func resultHandler(_ result: Result<Element, HttpError>)
 }
 
 /// 任意对象观察者
@@ -36,7 +25,7 @@ class Observer<Element>: ObserverType {
     let disposeBag: DisposeBag
     let observer: EventHandler
 
-    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: HttpResultHandler {
+    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: ObserverHandler {
         self.disposeBag = disposeBag
         self.observer = { [weak observer] result in
             observer?.resultHandler(result)
@@ -76,7 +65,7 @@ class ListObserver<ListElement>: ObserverType {
     let disposeBag: DisposeBag
     let observer: EventHandler
 
-    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: HttpResultHandler {
+    init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: ObserverHandler {
         self.disposeBag = disposeBag
         self.observer = { [weak observer] result in
             observer?.resultHandler(result)

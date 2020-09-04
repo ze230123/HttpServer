@@ -75,7 +75,7 @@ class AllCollegeListViewController: BaseCollectionViewController {
     }
 }
 
-extension AllCollegeListViewController: HttpResultHandler {
+extension AllCollegeListViewController: ObserverHandler {
     typealias Element = CollegeList
     func resultHandler(_ result: Result<CollegeList, HttpError>) {
         view.stopLoading()

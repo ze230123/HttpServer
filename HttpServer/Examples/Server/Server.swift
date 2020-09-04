@@ -128,4 +128,11 @@ class Server {
             .subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
+
+    static func banner(parameter: BannerParameter, observer: ObjectListObserver<Banners>) {
+        server
+            .request(api: CollegeApi.banner(parameter), map: observer.map)
+            .subscribe(observer)
+            .disposed(by: observer.disposeBag)
+    }
 }

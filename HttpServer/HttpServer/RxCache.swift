@@ -11,6 +11,16 @@ import Security
 import RxSwift
 import Moya
 
+struct CacheResult<Element> {
+    let jsonString: String?
+    let result: Element
+
+    init(jsonString: String?, result: Element) {
+        self.jsonString = jsonString
+        self.result = result
+    }
+}
+
 /// Rx封装的缓存工具类
 class RxCache {
     /// 读取缓存
@@ -18,7 +28,7 @@ class RxCache {
     ///   - key: 缓存key
     ///   - map: 数据转换工具
     /// - Returns: 数据可观察对象
-    func load<Map, Element>(_ key: String, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+    func load<Map, Element>(_ key: String, map: Map) -> Observable<CacheResult<Element>> where Map: MapHandler, Element == Map.Element {
         guard let cache = CacheCore.shared.cache(for: key) else {
             return Observable.error(HttpError.noCache)
         }
@@ -37,8 +47,10 @@ class RxCache {
     ///   - expiry: 过期时间
     ///   - map: 数据转换工具
     /// - Returns: 数据可观察对象
-    func save<Map, Element>(_ value: Element, key: String, expiry: Expiry, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
-        CacheCore.shared.setCache(map.mapCache(value), key: key, expiry: expiry)
+    func save<Map, Element>(_ value: CacheResult<Element>, key: String, expiry: Expiry, map: Map) -> Observable<CacheResult<Element>> where Map: MapHandler, Element == Map.Element {
+        if let cache = value.jsonString {
+            CacheCore.shared.setCache(cache, key: key, expiry: expiry)
+        }
         return .just(value)
     }
 }

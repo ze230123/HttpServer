@@ -29,7 +29,7 @@ class UserViewController: BaseViewController {
     }
 }
 
-extension UserViewController: HttpResultHandler {
+extension UserViewController: ObserverHandler {
     typealias Element = User
 
     func resultHandler(_ result: Result<User, HttpError>) {

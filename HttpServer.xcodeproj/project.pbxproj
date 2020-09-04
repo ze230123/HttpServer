@@ -21,7 +21,6 @@
 		763858A924FCF3FB00ABEC80 /* UICollectionView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858A824FCF3FB00ABEC80 /* UICollectionView+Refresh.swift */; };
 		763858AC24FCF73200ABEC80 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858AB24FCF73200ABEC80 /* EmptyView.swift */; };
 		763858AE24FCF78F00ABEC80 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858AD24FCF78F00ABEC80 /* LoadingView.swift */; };
-		763858B024FE13BE00ABEC80 /* HttpResultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858AF24FE13BE00ABEC80 /* HttpResultHandler.swift */; };
 		763858B224FE2B3400ABEC80 /* CollegeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858B124FE2B3400ABEC80 /* CollegeApi.swift */; };
 		763858B424FE2E1400ABEC80 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858B324FE2E1400ABEC80 /* College.swift */; };
 		763858B624FE307C00ABEC80 /* AllCollegeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763858B524FE307C00ABEC80 /* AllCollegeListViewController.swift */; };
@@ -59,6 +58,9 @@
 		7674E98F2501E18D00B19869 /* Strategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E98E2501E18D00B19869 /* Strategy.swift */; };
 		7674E9912501E56800B19869 /* MapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E9902501E56800B19869 /* MapHandler.swift */; };
 		7674E9932501EC4C00B19869 /* BaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E9922501EC4C00B19869 /* BaseResult.swift */; };
+		7674E995250214A000B19869 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E994250214A000B19869 /* BannerView.swift */; };
+		7674E9972502166D00B19869 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E9962502166D00B19869 /* BannerViewController.swift */; };
+		7674E9992502179A00B19869 /* Banners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7674E9982502179A00B19869 /* Banners.swift */; };
 		7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */; };
 		7678F1DB24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1DA24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift */; };
 		7678F1DC24B5690E006BBDD2 /* RequestCountHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */; };
@@ -121,7 +123,6 @@
 		763858A824FCF3FB00ABEC80 /* UICollectionView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Refresh.swift"; sourceTree = "<group>"; };
 		763858AB24FCF73200ABEC80 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		763858AD24FCF78F00ABEC80 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		763858AF24FE13BE00ABEC80 /* HttpResultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpResultHandler.swift; sourceTree = "<group>"; };
 		763858B124FE2B3400ABEC80 /* CollegeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeApi.swift; sourceTree = "<group>"; };
 		763858B324FE2E1400ABEC80 /* College.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
 		763858B524FE307C00ABEC80 /* AllCollegeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCollegeListViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +166,9 @@
 		7674E98E2501E18D00B19869 /* Strategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strategy.swift; sourceTree = "<group>"; };
 		7674E9902501E56800B19869 /* MapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHandler.swift; sourceTree = "<group>"; };
 		7674E9922501EC4C00B19869 /* BaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResult.swift; sourceTree = "<group>"; };
+		7674E994250214A000B19869 /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		7674E9962502166D00B19869 /* BannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
+		7674E9982502179A00B19869 /* Banners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banners.swift; sourceTree = "<group>"; };
 		7678F1CD24B30B53006BBDD2 /* HttpServer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HttpServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		7678F1D124B462F3006BBDD2 /* RequestCountHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCountHandler.swift; sourceTree = "<group>"; };
 		7678F1DA24B56892006BBDD2 /* RequestFrequencyDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFrequencyDatabaseTests.swift; sourceTree = "<group>"; };
@@ -235,7 +239,6 @@
 				7638589D24FCE21A00ABEC80 /* BaseViewController.swift */,
 				7638589B24FCE12800ABEC80 /* BaseTableViewController.swift */,
 				7638589F24FCE83A00ABEC80 /* BaseCollectionViewController.swift */,
-				763858AF24FE13BE00ABEC80 /* HttpResultHandler.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 		763858AA24FCF71800ABEC80 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7674E994250214A000B19869 /* BannerView.swift */,
 				763858AB24FCF73200ABEC80 /* EmptyView.swift */,
 				763858AD24FCF78F00ABEC80 /* LoadingView.swift */,
 			);
@@ -374,6 +378,7 @@
 				763858B524FE307C00ABEC80 /* AllCollegeListViewController.swift */,
 				7674E98624FF69CF00B19869 /* CollegeDetailsViewController.swift */,
 				7674E98724FF69CF00B19869 /* CollegeDetailsViewController.xib */,
+				7674E9962502166D00B19869 /* BannerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 				76DC1AC524F4ADCA00650E2C /* User.swift */,
 				76DC1ACA24F4BCA500650E2C /* Score.swift */,
 				763858B324FE2E1400ABEC80 /* College.swift */,
+				7674E9982502179A00B19869 /* Banners.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -714,6 +720,7 @@
 				763858A724FCF3CB00ABEC80 /* UITableView+Refresh.swift in Sources */,
 				7638582A24FC903D00ABEC80 /* EmptyViewController.swift in Sources */,
 				763858BB24FE311200ABEC80 /* CollegeListView.swift in Sources */,
+				7674E995250214A000B19869 /* BannerView.swift in Sources */,
 				76557F3B248F8687003572B1 /* String+Security.swift in Sources */,
 				763858AE24FCF78F00ABEC80 /* LoadingView.swift in Sources */,
 				763858A224FCEDEE00ABEC80 /* CollectionListViewController.swift in Sources */,
@@ -729,7 +736,8 @@
 				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
 				763858BD24FE313A00ABEC80 /* NibLoadable.swift in Sources */,
 				7674E98324FF67F800B19869 /* UserDefaults.swift in Sources */,
-				763858B024FE13BE00ABEC80 /* HttpResultHandler.swift in Sources */,
+				7674E9992502179A00B19869 /* Banners.swift in Sources */,
+				7674E9972502166D00B19869 /* BannerViewController.swift in Sources */,
 				76DC1ACD24F50CFD00650E2C /* ZipViewController.swift in Sources */,
 				76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */,
 				76557F32248F7A0F003572B1 /* HttpServer.swift in Sources */,

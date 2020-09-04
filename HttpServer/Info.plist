@@ -26,12 +26,21 @@
 		<dict>
 			<key>img1.youzy.cn</key>
 			<dict>
-                <key> NSIncludesSubdomains </key>
-                <true/>
-                <key> NSExceptionRequiresForwardSecrecy </key>
-                <false/>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
+				<key> NSExceptionRequiresForwardSecrecy </key>
+				<false/>
+				<key> NSIncludesSubdomains </key>
+				<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>img3.youzy.cn</key>
+			<dict>
+				<key> NSExceptionRequiresForwardSecrecy </key>
+				<false/>
+				<key> NSIncludesSubdomains </key>
+				<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
 			</dict>
 		</dict>
 	</dict>

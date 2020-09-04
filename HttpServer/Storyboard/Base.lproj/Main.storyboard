@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-jx-EOg">
-                                <rect key="frame" x="160" y="275.5" width="94" height="345"/>
+                                <rect key="frame" x="160" y="253" width="94" height="390"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
@@ -74,6 +74,13 @@
                                         <state key="normal" title="AllCollegeList"/>
                                         <connections>
                                             <segue destination="F3r-jf-JbC" kind="show" id="kC7-KM-vB8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ST-m2-7o6">
+                                        <rect key="frame" x="0.0" y="360" width="94" height="30"/>
+                                        <state key="normal" title="BannerView"/>
+                                        <connections>
+                                            <segue destination="2VT-Tf-3Li" kind="show" id="nCT-3v-kCL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -265,6 +272,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPc-FB-1b1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Banner View Controller-->
+        <scene sceneID="joB-Bz-Cqc">
+            <objects>
+                <viewController id="2VT-Tf-3Li" customClass="BannerViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hc2-Tf-tec">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UlN-8p-pCH" customClass="BannerView" customModule="HttpServer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="98" width="414" height="232"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="UlN-8p-pCH" secondAttribute="height" multiplier="375:210" id="d3n-pa-7l5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.96078431369999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Dx0-wt-0To" firstAttribute="trailing" secondItem="UlN-8p-pCH" secondAttribute="trailing" id="Sjt-9l-7LM"/>
+                            <constraint firstItem="UlN-8p-pCH" firstAttribute="top" secondItem="Dx0-wt-0To" secondAttribute="top" constant="10" id="qdu-T3-Wx3"/>
+                            <constraint firstItem="UlN-8p-pCH" firstAttribute="leading" secondItem="Dx0-wt-0To" secondAttribute="leading" id="udD-uR-ikg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Dx0-wt-0To"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xBQ-WM-ScY"/>
+                    <connections>
+                        <outlet property="bannerView" destination="UlN-8p-pCH" id="r0z-T6-7j3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rK0-Sa-HKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="539" y="1226"/>
         </scene>
         <!--All College List View Controller-->
         <scene sceneID="efK-I2-G4J">

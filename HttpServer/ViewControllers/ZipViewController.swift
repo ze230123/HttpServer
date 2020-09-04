@@ -22,7 +22,7 @@ class ZipViewController: BaseViewController {
     }
 }
 
-extension ZipViewController: HttpResultHandler {
+extension ZipViewController: ObserverHandler {
     typealias Element = Login
 
     func resultHandler(_ result: Result<Login, HttpError>) {

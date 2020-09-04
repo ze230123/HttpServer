@@ -28,7 +28,7 @@ extension HttpServer {
     ///   - api: 请求API
     ///   - map: 数据转换工具
     /// - Returns: 返回数据可观察对象
-    private func sendRequest<Map, Element>(api: TargetType, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+    private func sendRequest<Map, Element>(api: TargetType, map: Map) -> Observable<CacheResult<Element>> where Map: MapHandler, Element == Map.Element {
         return provider
             .rx
             .request(MultiTarget(api))
@@ -55,7 +55,7 @@ extension HttpServer {
     ///   - strategy: 缓存策略
     ///   - map: 数据转换工具
     /// - Returns: 返回数据可观察对象
-    func toObservable<Map, Element>(_ observable: Observable<Element>, strategy: BaseStrategy, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
+    func toObservable<Map, Element>(_ observable: Observable<CacheResult<Element>>, strategy: BaseStrategy, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
         return strategy.execute(rxCache, handler: handler, map: map, observable: observable)
     }
 }

@@ -8,11 +8,25 @@
 
 import ObjectMapper
 
+extension Map {
+    func toJSONString() -> String? {
+        guard let dict = currentValue, JSONSerialization.isValidJSONObject(dict) else {
+            return nil
+        }
+        if let data = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
+            return String(data: data, encoding: .utf8)
+        }
+        return nil
+    }
+}
+
 struct ObjectResult<Element>: Mappable where Element: Mappable {
     var message: String = ""
     var result: Element?
     var code: String = ""
     var isSuccess: Bool = false
+
+    var resultValue: String?
 
     init?(map: Map) {}
 
@@ -21,6 +35,8 @@ struct ObjectResult<Element>: Mappable where Element: Mappable {
         result      <- map["result"]
         code        <- map["code"]
         isSuccess   <- map["isSuccess"]
+
+        resultValue = map["result"].toJSONString()
     }
 }
 
@@ -30,6 +46,8 @@ struct ListResult<Element>: Mappable where Element: Mappable {
     var code: String = ""
     var isSuccess: Bool = false
 
+    var resultValue: String?
+
     init?(map: Map) {}
 
     mutating func mapping(map: Map) {
@@ -37,6 +55,8 @@ struct ListResult<Element>: Mappable where Element: Mappable {
         result      <- map["result"]
         code        <- map["code"]
         isSuccess   <- map["isSuccess"]
+
+        resultValue = map["result"].toJSONString()
     }
 }
 
