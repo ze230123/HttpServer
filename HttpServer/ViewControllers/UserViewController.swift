@@ -24,6 +24,7 @@ class UserViewController: BaseViewController {
     }
 
     override func request() {
+        view.showLoading(.image)
         let id = 14077053
         Server.getUserInfo(id: id, observer: newObserver)
     }
@@ -37,8 +38,7 @@ extension UserViewController: ObserverHandler {
         case .success(let user):
             print(user)
         case .failure(let error):
-            print("userError: ", error)
+            view.showError(error, style: .hud, observer: self)
         }
-        view.showEmpty(true)
     }
 }

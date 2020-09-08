@@ -19,6 +19,12 @@ struct APIError: Error {
     }
 }
 
+extension APIError: LocalizedError {
+    var localizedDescription: String {
+        return message
+    }
+}
+
 extension APIError {
     enum Mode {
         /// http其他错误
@@ -55,8 +61,8 @@ extension APIError {
             case .unknownHost:      return ("无法连接主机地址", "")
             case .dataMapping:      return ("数据解析出错", "")
             case .modelMapping:     return ("数据模型转换失败", "")
-            case .server(let msg):  return (msg, "")
-            case .unknown(let msg): return (msg, "")
+            case .server(let msg):  return (msg, "出错啦")
+            case .unknown(let msg): return (msg, "出错啦")
             }
         }
 

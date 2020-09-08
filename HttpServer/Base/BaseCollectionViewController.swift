@@ -35,4 +35,8 @@ class BaseCollectionViewController: BaseViewController, Refreshable {
 
     func request(action: RefreshAction) {
     }
+
+    override func onReTry() {
+        request(action: action)
+    }
 }

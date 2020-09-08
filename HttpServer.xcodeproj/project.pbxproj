@@ -34,6 +34,7 @@
 		7652380725063B0F00EB671D /* SwiftyUserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7652380625063B0F00EB671D /* SwiftyUserDefaults */; };
 		7652380925063B2000EB671D /* SwiftyUserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7652380825063B2000EB671D /* SwiftyUserDefaults */; };
 		7652387125075BCA00EB671D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7652387025075BCA00EB671D /* APIError.swift */; };
+		765238732507644100EB671D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765238722507644100EB671D /* ErrorView.swift */; };
 		76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557EFE248F709F003572B1 /* AppDelegate.swift */; };
 		76557F01248F709F003572B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F00248F709F003572B1 /* SceneDelegate.swift */; };
 		76557F03248F709F003572B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F02248F709F003572B1 /* ViewController.swift */; };
@@ -135,6 +136,9 @@
 		763858C024FE31D800ABEC80 /* UITableView+CellReusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+CellReusable.swift"; sourceTree = "<group>"; };
 		763858C224FE31E400ABEC80 /* UICollectionView+CellReusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+CellReusable.swift"; sourceTree = "<group>"; };
 		7652387025075BCA00EB671D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		765238722507644100EB671D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		7652387425077C4F00EB671D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		7652387525077C4F00EB671D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		76557EFB248F709F003572B1 /* HttpServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HttpServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76557EFE248F709F003572B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76557F00248F709F003572B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				7674E994250214A000B19869 /* BannerView.swift */,
 				763858AB24FCF73200ABEC80 /* EmptyView.swift */,
 				763858AD24FCF78F00ABEC80 /* LoadingView.swift */,
+				765238722507644100EB671D /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 76557EF2248F709F003572B1;
 			packageReferences = (
@@ -746,6 +752,7 @@
 				7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */,
 				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
 				763858BD24FE313A00ABEC80 /* NibLoadable.swift in Sources */,
+				765238732507644100EB671D /* ErrorView.swift in Sources */,
 				7674E98324FF67F800B19869 /* UserDefaults.swift in Sources */,
 				7674E9992502179A00B19869 /* Banners.swift in Sources */,
 				7674E9972502166D00B19869 /* BannerViewController.swift in Sources */,
@@ -817,6 +824,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				76557F05248F709F003572B1 /* Base */,
+				7652387525077C4F00EB671D /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -825,6 +833,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				76557F0A248F70A0003572B1 /* Base */,
+				7652387425077C4F00EB671D /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -836,6 +845,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -896,6 +906,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

@@ -84,7 +84,7 @@ class CollegeDetailsViewController: BaseViewController {
                 // true: 添加，false：删除
                 college.like(id, isLike: sender.isSelected)
             case .failure(let error):
-                MBHUD.showMessage(error.localizedDescription, to: view)
+                view.showError(error, style: .hud)
             }
         }
     }

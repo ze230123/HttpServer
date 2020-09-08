@@ -22,7 +22,13 @@ protocol ViewEmptyable where Self: UIView {
 
 /// 错误提示视图协议
 protocol ViewErrorable where Self: UIView {
-    func update(_ error: APIError)
+    func update(_ error: APIError, observer: ErrorHandlerObserverType?)
+}
+
+/// 错误处理回调
+protocol ErrorHandlerObserverType where Self: BaseViewController {
+    /// 重试
+    func onReTry()
 }
 
 private struct Keys {
@@ -45,6 +51,11 @@ extension UIView {
             let arr: [LoadingStyle] = [.image, .imageHud, .normalHud]
             return arr.randomElement()!
         }
+    }
+
+    enum ErrorStyle {
+        case view
+        case hud
     }
 }
 // MARK: - 私有存储，runtime添加
@@ -94,10 +105,13 @@ extension UIView {
     /// 错误提示view
     var errorView: ViewErrorable? {
         if _errorView == nil {
-//            _errorView = EmptyView()
+            _errorView = ErrorView()
+            _errorView?.frame = bounds
+            _errorView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         return _errorView
     }
+
     /// 无数据提示view
     var emptyView: ViewEmptyable? {
         if _emptyView == nil {
@@ -107,6 +121,7 @@ extension UIView {
         }
         return _emptyView
     }
+
     /// 全屏加载动画view
     var imageLoadingView: LoadAnimateable? {
         if _imageLoadingView == nil {
@@ -116,6 +131,7 @@ extension UIView {
         }
         return _imageLoadingView
     }
+
     /// 小屏加载动画view
     var imageHudLoadingView: MBHUD? {
         if _imageHudLoadingView == nil {
@@ -156,14 +172,21 @@ extension UIView {
         emptyView?.updateContent(content)
     }
 }
+
 // MARK: - Reset
 private extension UIView {
     /// 重置视图
     func reset() {
-        errorView?.removeFromSuperview()
-        emptyView?.removeFromSuperview()
-        imageLoadingView?.stop()
-        imageLoadingView?.removeFromSuperview()
+        if _errorView != nil {
+            errorView?.removeFromSuperview()
+        }
+        if _emptyView != nil {
+            emptyView?.removeFromSuperview()
+        }
+        if _imageLoadingView != nil {
+            imageLoadingView?.stop()
+            imageLoadingView?.removeFromSuperview()
+        }
         MBHUD.hide(for: self, animated: true)
     }
 }
@@ -171,8 +194,16 @@ private extension UIView {
 extension UIView {
     /// 显示错误提示
     /// - Parameter error: 错误
-    func showError(_ error: APIError) {
+    func showError(_ error: APIError, style: ErrorStyle, observer: ErrorHandlerObserverType? = nil) {
         reset()
+        switch style {
+        case .view:
+            guard let errorView = errorView else { return }
+            addSubview(errorView)
+            errorView.update(error, observer: observer)
+        case .hud:
+            MBHUD.showMessage(error.localizedDescription, to: self, delay: 3)
+        }
     }
 }
 // MARK: - Empty

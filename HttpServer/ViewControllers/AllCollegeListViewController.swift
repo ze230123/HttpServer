@@ -90,7 +90,7 @@ extension AllCollegeListViewController: ObserverHandler {
             isNotData = list.count < parameter.pageSize
             collectionView.reloadDataAndCheckEmpty()
         case .failure(let error):
-            view.showError(error)
+            view.showError(error, style: .view)
         }
         collectionView.endRefresh(action, isNotData: isNotData)
     }

@@ -34,7 +34,7 @@ extension BannerViewController: ObserverHandler {
             print("images: ", images)
             bannerView.setImages(images: images)
         case .failure(let error):
-            view.showError(error)
+            view.showError(error, style: .hud)
         }
     }
 }

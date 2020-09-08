@@ -1,0 +1,36 @@
+
+/* Class = "UIButton"; normalTitle = "AllCollegeList"; ObjectID = "0ZT-TA-OCz"; */
+"0ZT-TA-OCz.normalTitle" = "AllCollegeList";
+
+/* Class = "UIButton"; normalTitle = "BannerView"; ObjectID = "3ST-m2-7o6"; */
+"3ST-m2-7o6.normalTitle" = "BannerView";
+
+/* Class = "UIButton"; normalTitle = "Flatmap"; ObjectID = "CRO-x6-OAx"; */
+"CRO-x6-OAx.normalTitle" = "Flatmap";
+
+/* Class = "UIButton"; normalTitle = "TableList"; ObjectID = "Miu-nX-4R2"; */
+"Miu-nX-4R2.normalTitle" = "TableList";
+
+/* Class = "UIButton"; normalTitle = "Zip"; ObjectID = "SEK-iv-njz"; */
+"SEK-iv-njz.normalTitle" = "Zip";
+
+/* Class = "UIButton"; normalTitle = "NewTable"; ObjectID = "Tuy-p2-dmy"; */
+"Tuy-p2-dmy.normalTitle" = "NewTable";
+
+/* Class = "UILabel"; text = "LabelLabelLabelLabelLabelLabelLabel"; ObjectID = "U3u-hB-Tpa"; */
+"U3u-hB-Tpa.text" = "LabelLabelLabelLabelLabelLabelLabel";
+
+/* Class = "UIBarButtonItem"; title = "Clear"; ObjectID = "Wn5-Eg-qFz"; */
+"Wn5-Eg-qFz.title" = "Clear";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "i0A-0A-tZb"; */
+"i0A-0A-tZb.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "CollectionList"; ObjectID = "nXR-Ny-bXz"; */
+"nXR-Ny-bXz.normalTitle" = "CollectionList";
+
+/* Class = "UIButton"; normalTitle = "Empty"; ObjectID = "tHu-FM-0s2"; */
+"tHu-FM-0s2.normalTitle" = "Empty";
+
+/* Class = "UIButton"; normalTitle = "User"; ObjectID = "zxJ-Iv-KPs"; */
+"zxJ-Iv-KPs.normalTitle" = "User";

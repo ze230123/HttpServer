@@ -37,4 +37,8 @@ class BaseTableViewController: BaseViewController, Refreshable {
     /// - Parameter action: 行为：加载/更多, 具体细节查看`RefreshAction`
     func request(action: RefreshAction) {
     }
+
+    override func onReTry() {
+        request(action: action)
+    }
 }
