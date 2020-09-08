@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import HttpServer
 
 class HttpServerTests: XCTestCase {
 

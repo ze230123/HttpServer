@@ -75,3 +75,16 @@ struct StringResult: Mappable {
         isSuccess   <- map["isSuccess"]
     }
 }
+
+/// 缓存用到的模型
+struct CacheResult<Element> {
+    /// 服务器`Result`jsonString
+    let jsonString: String?
+    /// `Result`解析后的模型
+    let result: Element
+
+    init(jsonString: String?, result: Element) {
+        self.jsonString = jsonString
+        self.result = result
+    }
+}

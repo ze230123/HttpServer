@@ -42,7 +42,7 @@ class FaltMapViewController: BaseViewController {
 extension FaltMapViewController: ObserverHandler {
     typealias Element = Login
 
-    func resultHandler(_ result: Result<Login, HttpError>) {
+    func resultHandler(_ result: Result<Login, APIError>) {
         switch result {
         case .success(let user):
             print(user)

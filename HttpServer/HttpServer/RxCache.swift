@@ -11,16 +11,6 @@ import Security
 import RxSwift
 import Moya
 
-struct CacheResult<Element> {
-    let jsonString: String?
-    let result: Element
-
-    init(jsonString: String?, result: Element) {
-        self.jsonString = jsonString
-        self.result = result
-    }
-}
-
 /// Rx封装的缓存工具类
 class RxCache {
     /// 读取缓存
@@ -30,7 +20,7 @@ class RxCache {
     /// - Returns: 数据可观察对象
     func load<Map, Element>(_ key: String, map: Map) -> Observable<CacheResult<Element>> where Map: MapHandler, Element == Map.Element {
         guard let cache = CacheCore.shared.cache(for: key) else {
-            return Observable.error(HttpError.noCache)
+            return Observable.error(APIError(mode: .noCache))
         }
         do {
             let item = try map.mapObject(cache)

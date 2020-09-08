@@ -15,12 +15,12 @@ import ObjectMapper
 /// 将闭包转为方法
 protocol ObserverHandler where Self: BaseViewController {
     associatedtype Element
-    func resultHandler(_ result: Result<Element, HttpError>)
+    func resultHandler(_ result: Result<Element, APIError>)
 }
 
 /// 任意对象观察者
 class Observer<Element>: ObserverType {
-    typealias EventHandler = (Result<Element, HttpError>) -> Void
+    typealias EventHandler = (Result<Element, APIError>) -> Void
 
     let disposeBag: DisposeBag
     let observer: EventHandler
@@ -60,7 +60,7 @@ class ObjectObserver<Element>: Observer<Element> where Element: Mappable {
 class ListObserver<ListElement>: ObserverType {
     typealias Element = [ListElement]
 
-    typealias EventHandler = (Result<Element, HttpError>) -> Void
+    typealias EventHandler = (Result<Element, APIError>) -> Void
 
     let disposeBag: DisposeBag
     let observer: EventHandler

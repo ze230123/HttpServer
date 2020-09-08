@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import HttpServer
 
 class RequestFrequencyHandlerTests: XCTestCase {
     let handler = RequestFrequencyHandler()

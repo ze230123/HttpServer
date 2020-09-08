@@ -69,7 +69,7 @@ class BaseStrategy {
 class NoCacheStrategy: BaseStrategy {
     override func execute<Map, Element>(_ rxCache: RxCache, handler: RequestFrequencyHandler, map: Map, observable: Observable<CacheResult<Element>>) -> Observable<Element> where Map : MapHandler, Element == Map.Element {
         if handler.invalid(api: config.api, parameter: config.parameters) {
-            return Observable.error(HttpError.frequently)
+            return Observable.error(APIError(mode: .overload))
         } else {
             return observable.map { $0.result }
         }

@@ -3,6 +3,8 @@ source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 
 platform :ios, '10.0'
 
+
+
 target 'HttpServer' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -17,7 +19,7 @@ target 'HttpServer' do
   pod 'MBProgressHUD'
   pod 'SnapKit'
   pod 'SDWebImage'
-  pod 'SwiftyUserDefaults'
+#  pod 'SwiftyUserDefaults'
 
   pod 'LookinServer', :configurations => ['Debug']
 

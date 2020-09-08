@@ -26,7 +26,7 @@ class BannerViewController: BaseViewController {
 
 extension BannerViewController: ObserverHandler {
     typealias Element = [Banners]
-    func resultHandler(_ result: Result<[Banners], HttpError>) {
+    func resultHandler(_ result: Result<[Banners], APIError>) {
         view.stopLoading()
         switch result {
         case .success(let list):

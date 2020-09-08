@@ -29,8 +29,8 @@ class LoggerPlugin: PluginType {
             print("类型: ", target.method)
             print("数据: ", data ?? "无")
             print("------------------- 开始结束 -------------------")
-        case .failure(let error):
-            print("LoggerPlugin", error)
+        case .failure(let error): break
+//            print("LoggerPlugin", error)
         }
     }
 }

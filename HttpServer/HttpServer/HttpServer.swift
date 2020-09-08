@@ -8,9 +8,23 @@
 
 import Moya
 import RxSwift
+//(Endpoint, @escaping RequestResultClosure) -> Void
+let timeoutRequestClosure = { (endpoint: Endpoint, closure: @escaping MoyaProvider.RequestResultClosure) in
+    do {
+        var urlRequest = try endpoint.urlRequest()
+        urlRequest.timeoutInterval = 5
+        closure(.success(urlRequest))
+    } catch MoyaError.requestMapping(let url) {
+        closure(.failure(MoyaError.requestMapping(url)))
+    } catch MoyaError.parameterEncoding(let error) {
+        closure(.failure(MoyaError.parameterEncoding(error)))
+    } catch {
+        closure(.failure(MoyaError.underlying(error, nil)))
+    }
+}
 
 private var plugins: [PluginType] = [LoggerPlugin()]
-private let provider = MoyaProvider<MultiTarget>(plugins: plugins)
+private let provider = MoyaProvider<MultiTarget>(requestClosure: timeoutRequestClosure ,plugins: plugins)
 
 /// 网络服务单例（添加加载动画使用）
 class HttpServer {

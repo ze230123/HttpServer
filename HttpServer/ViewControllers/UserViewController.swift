@@ -32,7 +32,7 @@ class UserViewController: BaseViewController {
 extension UserViewController: ObserverHandler {
     typealias Element = User
 
-    func resultHandler(_ result: Result<User, HttpError>) {
+    func resultHandler(_ result: Result<User, APIError>) {
         switch result {
         case .success(let user):
             print(user)

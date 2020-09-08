@@ -12,20 +12,20 @@ import ObjectMapper
 fileprivate struct ObjectMapHandler<Element> where Element: Mappable {
     func mapRoot(_ JSONString: String) throws -> (String?, Element) {
         guard let item = Mapper<ObjectResult<Element>>().map(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+            throw APIError(mode: .dataMapping)
         }
         guard item.isSuccess else {
-            throw HttpError.message(item.message)
+            throw APIError(mode: .server(item.message))
         }
         guard let result = item.result else {
-            throw HttpError.dataMapping
+            throw APIError(mode: .modelMapping)
         }
         return (item.resultValue, result)
     }
 
     func mapResult(_ JSONString: String) throws -> Element {
         guard let item = Mapper<Element>().map(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+            throw APIError(mode: .dataMapping)
         }
         return item
     }
@@ -34,17 +34,17 @@ fileprivate struct ObjectMapHandler<Element> where Element: Mappable {
 fileprivate struct ListMapHandler<Element> where Element: Mappable {
     func mapRoot(_ JSONString: String) throws -> (String?, [Element]) {
         guard let item = Mapper<ListResult<Element>>().map(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+            throw APIError(mode: .dataMapping)
         }
         guard item.isSuccess else {
-            throw HttpError.message(item.message)
+            throw APIError(mode: .server(item.message))
         }
         return (item.resultValue, item.result)
     }
 
     func mapList(_ JSONString: String) throws -> [Element] {
         guard let item = Mapper<Element>().mapArray(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(Element.self)")
+            throw APIError(mode: .dataMapping)
         }
         return item
     }
@@ -53,10 +53,10 @@ fileprivate struct ListMapHandler<Element> where Element: Mappable {
 fileprivate struct StringMapHandler {
     func map(_ JSONString: String) throws -> String {
         guard let item = Mapper<StringResult>().map(JSONString: JSONString) else {
-            throw HttpError.objectMapping(jsonString: JSONString, object: "\(String.self)")
+            throw APIError(mode: .dataMapping)
         }
         guard item.isSuccess else {
-            throw HttpError.message(item.message)
+            throw APIError(mode: .server(item.message))
         }
         return item.result
     }

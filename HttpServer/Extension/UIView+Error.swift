@@ -22,7 +22,7 @@ protocol ViewEmptyable where Self: UIView {
 
 /// 错误提示视图协议
 protocol ViewErrorable where Self: UIView {
-    func update(_ error: HttpError)
+    func update(_ error: APIError)
 }
 
 private struct Keys {
@@ -171,7 +171,7 @@ private extension UIView {
 extension UIView {
     /// 显示错误提示
     /// - Parameter error: 错误
-    func showError(_ error: HttpError) {
+    func showError(_ error: APIError) {
         reset()
     }
 }
