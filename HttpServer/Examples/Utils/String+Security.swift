@@ -54,11 +54,13 @@ extension String {
         let keyLen = Int(key.lengthOfBytes(using: String.Encoding.utf8))
         //  CCHmac是系统内部方法
         CCHmac(algorithm.HMACAlgorithm, keyStr!, keyLen, str!, strLen, result)
-        let digest = stringFromResult(result: result, length: digestLen)
+        
+        let digest = String(data: Data(bytes: result, count: digestLen), encoding: .utf8) ?? ""
         result.deallocate()
         return digest
     }
 
+    
     // 内部结果
     private func stringFromResult(result: UnsafeMutablePointer<CUnsignedChar>, length: Int) -> String {
         let hash = NSMutableString()

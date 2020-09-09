@@ -15,6 +15,7 @@ class LoggerPlugin: PluginType {
         print("地址: ", target.baseURL.absoluteString + target.path)
         print("参数: ", target.task.parameters)
         print("类型: ", target.method)
+        print("头部: ", target.headers)
         print("------------------- 开始请求 -------------------")
     }
 
@@ -25,12 +26,14 @@ class LoggerPlugin: PluginType {
             print("\n")
             print("------------------- 开始结束 -------------------")
             print("地址: ", respose.request?.url?.absoluteString ?? "无")
+            print("头部: ", target.headers)
+            print("状态: ", respose.statusCode)
             print("参数: ", target.task.parameters)
             print("类型: ", target.method)
             print("数据: ", data ?? "无")
             print("------------------- 开始结束 -------------------")
-        case .failure(let error): break
-//            print("LoggerPlugin", error)
+        case .failure(let error):
+            print("LoggerPlugin", error)
         }
     }
 }

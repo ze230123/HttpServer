@@ -72,6 +72,11 @@ class ListObserver<ListElement>: ObserverType {
         }
     }
 
+    init(disposeBag: DisposeBag, observer: @escaping EventHandler) {
+        self.disposeBag = disposeBag
+        self.observer = observer
+    }
+
     func on(_ event: Event<[ListElement]>) {
         switch event {
         case .next(let item):

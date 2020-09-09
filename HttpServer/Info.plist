@@ -42,6 +42,15 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>toc.cn-bj.ufileos.com</key>
+			<dict>
+				<key> NSExceptionRequiresForwardSecrecy </key>
+				<false/>
+				<key> NSIncludesSubdomains </key>
+				<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>UIApplicationSceneManifest</key>

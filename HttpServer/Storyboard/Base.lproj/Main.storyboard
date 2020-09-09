@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-jx-EOg">
-                                <rect key="frame" x="160" y="253" width="94" height="390"/>
+                                <rect key="frame" x="160" y="208" width="94" height="480"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxJ-Iv-KPs">
                                         <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
@@ -81,6 +81,20 @@
                                         <state key="normal" title="BannerView"/>
                                         <connections>
                                             <segue destination="2VT-Tf-3Li" kind="show" id="nCT-3v-kCL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zlk-q2-7tl">
+                                        <rect key="frame" x="0.0" y="405" width="94" height="30"/>
+                                        <state key="normal" title="Upload"/>
+                                        <connections>
+                                            <segue destination="dG3-8t-eo5" kind="show" id="Txz-qV-LFL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcE-0O-wSY">
+                                        <rect key="frame" x="0.0" y="450" width="94" height="30"/>
+                                        <state key="normal" title="ZipImage"/>
+                                        <connections>
+                                            <segue destination="ZzA-6T-9qI" kind="show" id="iXW-Io-Vu2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -255,6 +269,98 @@
             </objects>
             <point key="canvasLocation" x="2083" y="-934"/>
         </scene>
+        <!--Zip Upload View Controller-->
+        <scene sceneID="Hhf-6m-3vc">
+            <objects>
+                <viewController id="ZzA-6T-9qI" customClass="ZipUploadViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L4A-Lc-JWr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="gsq-yL-rT2">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n4h-zW-gPC">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rVO-gh-GGO">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionCell" id="SEy-8B-R3I" customClass="ImageCollectionCell" customModule="HttpServer" customModuleProvider="target">
+                                                <rect key="frame" x="8" y="8" width="128" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Ye-D8-uuu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Asu-Yw-yIz">
+                                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="Asu-Yw-yIz" secondAttribute="trailing" id="63C-bg-mnT"/>
+                                                        <constraint firstItem="Asu-Yw-yIz" firstAttribute="top" secondItem="6Ye-D8-uuu" secondAttribute="top" id="MDX-3t-pfs"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Asu-Yw-yIz" secondAttribute="bottom" id="NBJ-Om-dc4"/>
+                                                        <constraint firstItem="Asu-Yw-yIz" firstAttribute="leading" secondItem="6Ye-D8-uuu" secondAttribute="leading" id="ZMM-lJ-AFb"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <connections>
+                                                    <outlet property="imageView" destination="Asu-Yw-yIz" id="uzb-ej-tLN"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="ZzA-6T-9qI" id="Ebw-zQ-6as"/>
+                                        </connections>
+                                    </collectionView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="CHF-Hq-0PH">
+                                        <rect key="frame" x="0.0" y="734" width="414" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYX-Ue-e4y">
+                                                <rect key="frame" x="0.0" y="0.0" width="206.5" height="40"/>
+                                                <state key="normal" title="Image"/>
+                                                <connections>
+                                                    <action selector="imageAction" destination="ZzA-6T-9qI" eventType="touchUpInside" id="nO7-hc-aTr"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chQ-Z4-bPN">
+                                                <rect key="frame" x="207.5" y="0.0" width="206.5" height="40"/>
+                                                <state key="normal" title="Upload"/>
+                                                <connections>
+                                                    <action selector="uploadAction" destination="ZzA-6T-9qI" eventType="touchUpInside" id="ZpV-lf-HMH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="odj-aI-UmC"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RSf-wx-HN7" firstAttribute="trailing" secondItem="gsq-yL-rT2" secondAttribute="trailing" id="GZ2-0X-Gek"/>
+                            <constraint firstItem="gsq-yL-rT2" firstAttribute="leading" secondItem="RSf-wx-HN7" secondAttribute="leading" id="egZ-tX-Sc5"/>
+                            <constraint firstItem="gsq-yL-rT2" firstAttribute="top" secondItem="RSf-wx-HN7" secondAttribute="top" id="poB-9M-fQt"/>
+                            <constraint firstItem="RSf-wx-HN7" firstAttribute="bottom" secondItem="gsq-yL-rT2" secondAttribute="bottom" id="ywE-zf-ID5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RSf-wx-HN7"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ojz-N9-Xme"/>
+                    <connections>
+                        <outlet property="collectionView" destination="n4h-zW-gPC" id="uVS-ob-vXI"/>
+                        <outlet property="layout" destination="rVO-gh-GGO" id="Qh3-Ad-Y8W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PnF-ap-bcx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-749" y="551"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="m1a-fU-CnJ">
             <objects>
@@ -272,6 +378,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPc-FB-1b1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Upload View Controller-->
+        <scene sceneID="tAU-0h-S9z">
+            <objects>
+                <viewController id="dG3-8t-eo5" customClass="UploadViewController" customModule="HttpServer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ATj-Qo-8ul">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="JJu-oY-8uA">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yqo-HR-nVQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="729"/>
+                                        <color key="backgroundColor" red="0.99607843139999996" green="0.63137254899999995" blue="0.17254901959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMv-Cl-We2">
+                                        <rect key="frame" x="0.0" y="734" width="414" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="m8h-KM-2JA"/>
+                                        </constraints>
+                                        <state key="normal" title="Image"/>
+                                        <connections>
+                                            <action selector="imageAction" destination="dG3-8t-eo5" eventType="touchUpInside" id="fXx-3B-bv6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="BUV-DC-7pA" firstAttribute="bottom" secondItem="JJu-oY-8uA" secondAttribute="bottom" id="GkD-dO-7HH"/>
+                            <constraint firstItem="BUV-DC-7pA" firstAttribute="trailing" secondItem="JJu-oY-8uA" secondAttribute="trailing" id="HvZ-lt-CbW"/>
+                            <constraint firstItem="JJu-oY-8uA" firstAttribute="leading" secondItem="BUV-DC-7pA" secondAttribute="leading" id="QP6-ho-hSb"/>
+                            <constraint firstItem="JJu-oY-8uA" firstAttribute="top" secondItem="BUV-DC-7pA" secondAttribute="top" id="XD1-Fn-dBa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BUV-DC-7pA"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="r92-WU-rXy"/>
+                    <connections>
+                        <outlet property="imageView" destination="yqo-HR-nVQ" id="2cJ-8z-5dN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g0A-im-t9J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-283" y="1225"/>
         </scene>
         <!--Banner View Controller-->
         <scene sceneID="joB-Bz-Cqc">

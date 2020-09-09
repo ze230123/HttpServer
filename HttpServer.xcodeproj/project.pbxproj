@@ -35,6 +35,9 @@
 		7652380925063B2000EB671D /* SwiftyUserDefaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7652380825063B2000EB671D /* SwiftyUserDefaults */; };
 		7652387125075BCA00EB671D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7652387025075BCA00EB671D /* APIError.swift */; };
 		765238732507644100EB671D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765238722507644100EB671D /* ErrorView.swift */; };
+		7652387725086FED00EB671D /* ImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7652387625086FED00EB671D /* ImageAPI.swift */; };
+		76523879250883D200EB671D /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76523878250883D200EB671D /* UploadViewController.swift */; };
+		7652387B2508D03600EB671D /* ZipUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7652387A2508D03600EB671D /* ZipUploadViewController.swift */; };
 		76557EFF248F709F003572B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557EFE248F709F003572B1 /* AppDelegate.swift */; };
 		76557F01248F709F003572B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F00248F709F003572B1 /* SceneDelegate.swift */; };
 		76557F03248F709F003572B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76557F02248F709F003572B1 /* ViewController.swift */; };
@@ -139,6 +142,9 @@
 		765238722507644100EB671D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		7652387425077C4F00EB671D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		7652387525077C4F00EB671D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		7652387625086FED00EB671D /* ImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPI.swift; sourceTree = "<group>"; };
+		76523878250883D200EB671D /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		7652387A2508D03600EB671D /* ZipUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipUploadViewController.swift; sourceTree = "<group>"; };
 		76557EFB248F709F003572B1 /* HttpServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HttpServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76557EFE248F709F003572B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76557F00248F709F003572B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +392,8 @@
 				7674E98624FF69CF00B19869 /* CollegeDetailsViewController.swift */,
 				7674E98724FF69CF00B19869 /* CollegeDetailsViewController.xib */,
 				7674E9962502166D00B19869 /* BannerViewController.swift */,
+				76523878250883D200EB671D /* UploadViewController.swift */,
+				7652387A2508D03600EB671D /* ZipUploadViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -436,6 +444,7 @@
 				76557F34248F7B37003572B1 /* UserApi.swift */,
 				76DC1AC824F4BAB500650E2C /* ScoreApi.swift */,
 				763858B124FE2B3400ABEC80 /* CollegeApi.swift */,
+				7652387625086FED00EB671D /* ImageAPI.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -732,6 +741,7 @@
 				7678F1E324B5C302006BBDD2 /* CacheCore.swift in Sources */,
 				76557F452490A69A003572B1 /* RxCache.swift in Sources */,
 				76DC1ACB24F4BCA500650E2C /* Score.swift in Sources */,
+				7652387B2508D03600EB671D /* ZipUploadViewController.swift in Sources */,
 				76DC1AD124F5156C00650E2C /* Server.swift in Sources */,
 				763858A724FCF3CB00ABEC80 /* UITableView+Refresh.swift in Sources */,
 				7638582A24FC903D00ABEC80 /* EmptyViewController.swift in Sources */,
@@ -739,6 +749,7 @@
 				7652387125075BCA00EB671D /* APIError.swift in Sources */,
 				7674E995250214A000B19869 /* BannerView.swift in Sources */,
 				76557F3B248F8687003572B1 /* String+Security.swift in Sources */,
+				76523879250883D200EB671D /* UploadViewController.swift in Sources */,
 				763858AE24FCF78F00ABEC80 /* LoadingView.swift in Sources */,
 				763858A224FCEDEE00ABEC80 /* CollectionListViewController.swift in Sources */,
 				763858BF24FE318600ABEC80 /* CellReusable.swift in Sources */,
@@ -751,6 +762,7 @@
 				763858B224FE2B3400ABEC80 /* CollegeApi.swift in Sources */,
 				7678F1D224B462F3006BBDD2 /* RequestCountHandler.swift in Sources */,
 				76557F35248F7B37003572B1 /* UserApi.swift in Sources */,
+				7652387725086FED00EB671D /* ImageAPI.swift in Sources */,
 				763858BD24FE313A00ABEC80 /* NibLoadable.swift in Sources */,
 				765238732507644100EB671D /* ErrorView.swift in Sources */,
 				7674E98324FF67F800B19869 /* UserDefaults.swift in Sources */,
