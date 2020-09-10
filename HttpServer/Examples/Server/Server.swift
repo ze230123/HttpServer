@@ -9,6 +9,12 @@
 import Foundation
 import RxSwift
 
+extension Observable {
+    func eg_subscribe<Observer>(_ observer: Observer) -> Disposable where Element == Observer.Element, Observer : ObserverType {
+        return observeOn(MainScheduler.asyncInstance).subscribe(observer)
+    }
+}
+
 class Server {
     static private let server = HttpServer.share
 
@@ -19,7 +25,7 @@ class Server {
     static func getUserInfo(id: Int, observer: ObjectObserver<User>) {
         server
             .request(api: UserApi.info(id: id), map: observer.map)
-            .subscribe(observer)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
 
@@ -31,7 +37,7 @@ class Server {
     static func getScore(numId: Int, proId: Int, observer: ObjectObserver<Score>) {
         server
             .request(api: ScoreApi.getByUser(numId: numId, proId: proId), map: observer.map)
-            .subscribe(observer)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
 
@@ -49,17 +55,8 @@ class Server {
                         return Login(user: user, score: score)
                     }
             }
-            .subscribe(observer)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
-//        server
-//            .request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
-//            .flatMap { (user) -> Observable<Login> in
-//                return server
-//                    .request(api: ScoreApi.getByUser(numId: user.numId, proId: user.provinceId), mapHandler: callback.mapScore())
-//                    .map { (score) -> Login in
-//                        return Login(user: user, score: score)
-//                    }
-//            }.subscribe(callback).disposed(by: callback.disposeBag)
     }
 
     /// 同时请求
@@ -72,7 +69,9 @@ class Server {
         let scoreRequest = server.request(api: ScoreApi.getByUser(numId: id, proId: proId), map: observer.scoreMap)
         Observable<Login>
             .zip(userRequest, scoreRequest, resultSelector: observer.mapLogin())
-            .subscribe(observer)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: .global()))
+            .observeOn(MainScheduler.instance)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
 //        let userRequest = server.request(api: UserApi.info(id: id), mapHandler: callback.mapUser())
 //        let scoreRequest = server.request(api: ScoreApi.getByUser(numId: id, proId: proId), mapHandler: callback.mapScore())
@@ -90,13 +89,10 @@ class Server {
         server
             .request(api: CollegeApi.all(parameter), map: observer.map)
             .map(observer.mapList())
-            .subscribe(observer)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: .global()))
+            .observeOn(MainScheduler.instance)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
-//        server
-////            .request(api: CollegeApi.all(parameter), mapHandler: observer.mapObject())
-//            .newRequest(api: CollegeApi.all(parameter), oberver: observer)
-//            .subscribe(observer)
-//            .disposed(by: observer.disposeBag)
     }
 
     /// 关注院校
@@ -125,14 +121,16 @@ class Server {
 
         server
             .request(api: api, map: observer.map)
-            .subscribe(observer)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: .global()))
+            .observeOn(MainScheduler.instance)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
 
     static func banner(parameter: BannerParameter, observer: ObjectListObserver<Banners>) {
         server
             .request(api: CollegeApi.banner(parameter), map: observer.map)
-            .subscribe(observer)
+            .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
 }

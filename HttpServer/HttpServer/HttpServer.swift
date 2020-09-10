@@ -8,7 +8,7 @@
 
 import Moya
 import RxSwift
-//(Endpoint, @escaping RequestResultClosure) -> Void
+
 let timeoutRequestClosure = { (endpoint: Endpoint, closure: @escaping MoyaProvider.RequestResultClosure) in
     do {
         var urlRequest = try endpoint.urlRequest()
@@ -24,15 +24,21 @@ let timeoutRequestClosure = { (endpoint: Endpoint, closure: @escaping MoyaProvid
 }
 
 private var plugins: [PluginType] = [LoggerPlugin()]
-private let provider = MoyaProvider<MultiTarget>(requestClosure: timeoutRequestClosure ,plugins: plugins)
+private let provider = MoyaProvider<MultiTarget>(requestClosure: timeoutRequestClosure, callbackQueue: .main, plugins: plugins)
 
 /// 网络服务单例（添加加载动画使用）
 class HttpServer {
     static let share = HttpServer()
-    private let rxCache = RxCache()
+
     private let handler = RequestFrequencyHandler()
 
-    init() {}
+    private let rxCache: RxCache
+    private let scheduler: SchedulerType
+
+    private init() {
+        scheduler = ConcurrentDispatchQueueScheduler(qos: DispatchQoS.default)
+        rxCache = RxCache(scheduler: scheduler)
+    }
 }
 
 extension HttpServer {
@@ -47,6 +53,7 @@ extension HttpServer {
             .rx
             .request(MultiTarget(api))
             .asObservable()
+            .observeOn(scheduler)
             .filterSuccessfulStatusCodes()
             .mapString()
             .map(map.mapObject())

@@ -188,6 +188,4 @@ struct ImageHelper {
         let data = compressImage?.jpegData(compressionQuality: 0.5)
         return data!
     }
-
-    
 }

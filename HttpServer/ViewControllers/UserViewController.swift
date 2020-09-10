@@ -34,6 +34,7 @@ extension UserViewController: ObserverHandler {
     typealias Element = User
 
     func resultHandler(_ result: Result<User, APIError>) {
+        view.stopLoading()
         switch result {
         case .success(let user):
             print(user)

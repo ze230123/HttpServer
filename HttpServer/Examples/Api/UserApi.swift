@@ -38,7 +38,7 @@ extension UserApi: TargetType, MoyaAddable {
     var path: String {
         switch self {
         case .info:
-            return "/Users/GetBrief1"
+            return "/Users/GetBrief"
         }
     }
 

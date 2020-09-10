@@ -13,21 +13,26 @@ import Moya
 
 /// Rx封装的缓存工具类
 class RxCache {
+    private let scheduler: SchedulerType
+
+    init(scheduler: SchedulerType) {
+        self.scheduler = scheduler
+    }
     /// 读取缓存
     /// - Parameters:
     ///   - key: 缓存key
     ///   - map: 数据转换工具
     /// - Returns: 数据可观察对象
     func load<Map, Element>(_ key: String, map: Map) -> Observable<CacheResult<Element>> where Map: MapHandler, Element == Map.Element {
-        guard let cache = CacheCore.shared.cache(for: key) else {
-            return Observable.error(APIError(mode: .noCache))
+        let observable = Observable<String>.create { (observer) -> Disposable in
+            if let cache = CacheCore.shared.cache(for: key) {
+                observer.onNext(cache)
+            } else {
+                observer.onError(APIError(mode: .noCache))
+            }
+            return Disposables.create()
         }
-        do {
-            let item = try map.mapObject(cache)
-            return Observable.just(item)
-        } catch {
-            return Observable.error(error)
-        }
+        return observable.observeOn(scheduler).map(map.mapObject)
     }
 
     /// 保存数据
