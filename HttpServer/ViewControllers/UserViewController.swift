@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 class UserViewController: BaseViewController {
-    lazy var newObserver = ObjectObserver<User>(disposeBag: self.disposeBag, observer: self)
+    lazy var newObserver = ObjectObserver<User>(disposeBag: DisposeBag(), observer: self)
 
     deinit {
         print("UserViewController_deinit")

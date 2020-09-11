@@ -25,6 +25,10 @@ class Observer<Element>: ObserverType {
     let disposeBag: DisposeBag
     let observer: EventHandler
 
+    deinit {
+        print("\(self)_deinit")
+    }
+
     init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: ObserverHandler {
         self.disposeBag = disposeBag
         self.observer = { [weak observer] result in
@@ -64,6 +68,10 @@ class ListObserver<ListElement>: ObserverType {
 
     let disposeBag: DisposeBag
     let observer: EventHandler
+
+    deinit {
+        print("\(self)_deinit")
+    }
 
     init<Observer>(disposeBag: DisposeBag, observer: Observer) where Element == Observer.Element, Observer: ObserverHandler {
         self.disposeBag = disposeBag

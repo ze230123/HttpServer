@@ -15,3 +15,10 @@ extension DefaultsKeys {
     var likeCollegeList: DefaultsKey<[Int]> { .init("LikeCollegeList", defaultValue: []) }
 }
 
+// MARK: - 接口缓存模式
+extension DefaultsKeys {
+    var cacheCollegeMode: DefaultsKey<Int> { .init("CacheCollegeMode", defaultValue: 1) }
+    var cacheMajorMode: DefaultsKey<Int> { .init("CacheMajorMode", defaultValue: 1) }
+    var cachePclMode: DefaultsKey<Int> { .init("CachePclMode", defaultValue: 1) }
+    var cacheOtherMode: DefaultsKey<Int> { .init("CacheOtherMode", defaultValue: 1) }
+}

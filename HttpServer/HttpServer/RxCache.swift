@@ -27,6 +27,7 @@ class RxCache {
         let observable = Observable<String>.create { (observer) -> Disposable in
             if let cache = CacheCore.shared.cache(for: key) {
                 observer.onNext(cache)
+                observer.onCompleted()
             } else {
                 observer.onError(APIError(mode: .noCache))
             }

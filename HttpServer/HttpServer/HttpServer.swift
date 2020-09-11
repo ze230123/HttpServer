@@ -28,7 +28,7 @@ private let provider = MoyaProvider<MultiTarget>(requestClosure: timeoutRequestC
 
 /// 网络服务单例（添加加载动画使用）
 class HttpServer {
-    static let share = HttpServer()
+    static let shared = HttpServer()
 
     private let handler = RequestFrequencyHandler()
 
@@ -36,6 +36,7 @@ class HttpServer {
     private let scheduler: SchedulerType
 
     private init() {
+        print("网络初始化")
         scheduler = ConcurrentDispatchQueueScheduler(qos: DispatchQoS.default)
         rxCache = RxCache(scheduler: scheduler)
     }
@@ -78,5 +79,65 @@ extension HttpServer {
     /// - Returns: 返回数据可观察对象
     func toObservable<Map, Element>(_ observable: Observable<CacheResult<Element>>, strategy: BaseStrategy, map: Map) -> Observable<Element> where Map: MapHandler, Element == Map.Element {
         return strategy.execute(rxCache, handler: handler, map: map, observable: observable)
+    }
+}
+
+extension ObservableType {
+    public func myDebug(identifier: String) -> Observable<Self.Element> {
+       return Observable.create { observer in
+           print("subscribed \(identifier)")
+           let subscription = self.subscribe { e in
+               print("event \(identifier)  \(e)")
+               switch e {
+               case .next(let value):
+                   observer.on(.next(value))
+
+               case .error(let error):
+                   observer.on(.error(error))
+
+               case .completed:
+                   observer.on(.completed)
+               }
+           }
+           return Disposables.create {
+                  print("disposing \(identifier)")
+                  subscription.dispose()
+           }
+       }
+   }
+}
+
+
+extension HttpServer {
+    func initServer() {
+        _ = request(api: ConfigApi.cache, map: ObjectMap<AppConfig>()).myDebug(identifier: "cache mode")
+            .map { $0.settingsJson }
+            .compactMap { try? ObjectMap<Config>().mapObject($0).result }
+            .subscribe(onNext: { (item) in
+                print("缓存模式", item)
+                AppConstant.CacheMode.update(item)
+            }, onError: { (_) in
+                print("缓存模式", "本地")
+                AppConstant.CacheMode.updateFromDefaults()
+            })
+    }
+}
+
+import ObjectMapper
+
+struct Config: Mappable {
+    var college: Int = 0
+    var major: Int = 0
+    var pcl: Int = 0
+    var other: Int = 0
+
+    init() {}
+    init?(map: Map) {}
+
+    mutating func mapping(map: Map) {
+        college <- map["College"]
+        major   <- map["Major"]
+        pcl     <- map["PCL"]
+        other   <- map["Other"]
     }
 }

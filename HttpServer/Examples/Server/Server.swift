@@ -16,7 +16,7 @@ extension Observable {
 }
 
 class Server {
-    static private let server = HttpServer.share
+    static private let server = HttpServer.shared
 
     /// 正常请求 获取用户信息
     /// - Parameters:
@@ -24,7 +24,7 @@ class Server {
     ///   - callback: 回调对象
     static func getUserInfo(id: Int, observer: ObjectObserver<User>) {
         server
-            .request(api: UserApi.info(id: id), map: observer.map)
+            .request(api: UserApi.info(id: id), map: observer.map).myDebug(identifier: "user request")
             .eg_subscribe(observer)
             .disposed(by: observer.disposeBag)
     }
